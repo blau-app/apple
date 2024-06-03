@@ -7,7 +7,7 @@ import SwiftUI
 struct BlauApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TokensView()
         }
     }
 }

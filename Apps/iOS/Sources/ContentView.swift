@@ -1,9 +1,5 @@
-//
-//  ContentView.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/2/24.
-//
+// ContentView.swift
+// Copyright (c) 2024 Party Labs, Inc
 
 import SwiftUI
 
@@ -13,6 +9,7 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
+
             Text("Hello, world!")
         }
         .padding()

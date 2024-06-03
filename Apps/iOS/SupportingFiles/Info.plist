@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Submap needs to know what you&apos;re doing</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Submap needs to know where it is</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Submap needs to know where it is</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Submap needs to move</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Submap needs to see</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>location</string>
+	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Submap needs to hear and speak</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Submap needs to know what to remind you about</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Submap needs to transcribe your speech</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Submap needs its health status</string>
+</dict>
+</plist>

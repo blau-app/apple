@@ -1,9 +1,5 @@
-//
-//  BlauApp.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/2/24.
-//
+// BlauApp.swift
+// Copyright (c) 2024 Party Labs, Inc
 
 import SwiftUI
 

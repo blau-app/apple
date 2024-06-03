@@ -1,0 +1,35 @@
+name: Blau 
+settings:
+  DEVELOPMENT_TEAM: 
+  CURRENT_PROJECT_VERSION: 1
+  MARKETING_VERSION: 0.0.1
+options:
+  bundleIdPrefix: com.joeblau
+  deploymentTarget:
+    iOS: "17.5"
+  createIntermediateGroups: true
+  preGenCommand: .github/scripts/pre.sh
+  postGenCommand: .github/scripts/post.sh
+targets:
+  Blau:
+    type: application
+    platform: iOS
+    sources:
+      - path: Apps/iOS
+        excludes:
+          - Apps/iOS/PreviewContent/*
+      - path: Apps/iOS/Resources/
+        buildPhase: resources
+      - path: .
+        includes:
+          - .env
+        buildPhase: resources
+    settings:
+      DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
+      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.Blau 
+      SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
+      TARGETED_DEVICE_FAMILY: 1
+      SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
+      INFOPLIST_KEY_UILaunchScreen_Generation: true
+      GENERATE_INFOPLIST_FILE: true
+      VALIDATE_WORKSPACE: true

@@ -1,6 +1,6 @@
 name: Blau 
 settings:
-  DEVELOPMENT_TEAM: 
+  DEVELOPMENT_TEAM: 99JJXS75CQ
   CURRENT_PROJECT_VERSION: 1
   MARKETING_VERSION: 0.0.1
 options:
@@ -26,9 +26,10 @@ targets:
         buildPhase: resources
     settings:
       DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
-      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.Blau 
+      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.blau 
       SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
       TARGETED_DEVICE_FAMILY: 1
+      SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: false
       SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
       INFOPLIST_KEY_UILaunchScreen_Generation: true
       GENERATE_INFOPLIST_FILE: true

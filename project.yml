@@ -10,6 +10,10 @@ options:
   createIntermediateGroups: true
   preGenCommand: .github/scripts/pre.sh
   postGenCommand: .github/scripts/post.sh
+packages:
+  capsule-swift-sdk:
+    url: https://github.com/capsule-org/swift-sdk.git
+    branch: initial-branch
 targets:
   Blau:
     type: application
@@ -26,7 +30,7 @@ targets:
         buildPhase: resources
     settings:
       DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
-      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.blau 
+      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.bank 
       SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
       TARGETED_DEVICE_FAMILY: 1
       SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: false
@@ -34,3 +38,6 @@ targets:
       INFOPLIST_KEY_UILaunchScreen_Generation: true
       GENERATE_INFOPLIST_FILE: true
       VALIDATE_WORKSPACE: true
+    dependencies:
+      - package: capsule-swift-sdk
+        product: swift-sdk

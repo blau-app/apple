@@ -1,9 +1,5 @@
-//
-//  Accounts.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/19/24.
-//
+// Settings.swift
+// Copyright (c) 2024 Party Labs, Inc
 
 import SwiftUI
 

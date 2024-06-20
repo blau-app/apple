@@ -8,17 +8,17 @@ struct OnboardingView: View {
     enum FocusField: Hashable {
         case email, code
     }
-    
+
     @Environment(\.authorizationController) private var authorizationController
 
     @FocusState private var focusedField: FocusField?
-    
+
     @State var email: String = ""
     @State var isEmailProcessing: Bool = false
     @State var showVerify: Bool = false
     @State var code: String = ""
     @State var isCodeProcessing: Bool = false
-    
+
     @StateObject var capsule = Capsule(environment: .beta(jsBridgeUrl: nil),
                                        apiKey: CAPSULE_API_KEY)
 
@@ -38,17 +38,17 @@ struct OnboardingView: View {
                             .keyboardType(.emailAddress)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
-                                
+
                             Button {
                                 login(email: email)
                             } label: {
                                 HStack(spacing: 2) {
-                                    if (isEmailProcessing) {
+                                    if isEmailProcessing {
                                         ProgressView()
                                     }
                                     Text("Login")
                                 }
-                            }.disabled(showVerify)
+                            }.disabled(showVerify || isEmailProcessing)
                         }
 
                         if showVerify {
@@ -63,12 +63,12 @@ struct OnboardingView: View {
                                     verify(code: code)
                                 } label: {
                                     HStack(spacing: 2) {
-                                        if (isCodeProcessing) {
+                                        if isCodeProcessing {
                                             ProgressView()
                                         }
                                         Text("Verify")
                                     }
-                                }
+                                }.disabled(isCodeProcessing)
                             }
                         }
                     }

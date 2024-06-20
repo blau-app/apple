@@ -14,8 +14,10 @@ struct OnboardingView: View {
     @FocusState private var focusedField: FocusField?
     
     @State var email: String = ""
+    @State var isEmailProcessing: Bool = false
     @State var showVerify: Bool = false
     @State var code: String = ""
+    @State var isCodeProcessing: Bool = false
     
     @StateObject var capsule = Capsule(environment: .beta(jsBridgeUrl: nil),
                                        apiKey: CAPSULE_API_KEY)
@@ -33,13 +35,19 @@ struct OnboardingView: View {
                             }
                             .focused($focusedField, equals: .email)
                             .textContentType(.emailAddress)
+                            .keyboardType(.emailAddress)
                             .autocorrectionDisabled()
                             .autocapitalization(.none)
                                 
                             Button {
                                 login(email: email)
                             } label: {
-                                Text("Login")
+                                HStack(spacing: 2) {
+                                    if (isEmailProcessing) {
+                                        ProgressView()
+                                    }
+                                    Text("Login")
+                                }
                             }.disabled(showVerify)
                         }
 
@@ -54,7 +62,12 @@ struct OnboardingView: View {
                                 Button {
                                     verify(code: code)
                                 } label: {
-                                    Text("Verify")
+                                    HStack(spacing: 2) {
+                                        if (isCodeProcessing) {
+                                            ProgressView()
+                                        }
+                                        Text("Verify")
+                                    }
                                 }
                             }
                         }
@@ -71,6 +84,7 @@ struct OnboardingView: View {
     private func login(email: String) {
         Task {
             do {
+                isEmailProcessing = true
                 let userExists = try await capsule.checkIfUserExists(email: email)
                 if userExists {
                     return
@@ -78,8 +92,10 @@ struct OnboardingView: View {
                 try await capsule.createUser(email: email)
                 showVerify = true
                 focusedField = .code
+                isEmailProcessing = false
             } catch {
-                print(error)
+                isEmailProcessing = false
+                print("LOGIN: \(error)")
             }
         }
     }
@@ -87,15 +103,16 @@ struct OnboardingView: View {
     private func verify(code: String) {
         Task {
             do {
+                isCodeProcessing = true
                 let biometricsId = try await capsule.verify(verificationCode: code)
 
                 try await capsule.generatePasskey(email: email,
                                                   biometricsId: biometricsId,
                                                   authorizationController: authorizationController)
                 try await capsule.createWallet(skipDistributable: false)
-
+                isCodeProcessing = false
             } catch {
-                print(error)
+                print("VERIFY: \(error)")
             }
         }
     }

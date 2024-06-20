@@ -32,6 +32,7 @@ targets:
       DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
       PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.bank 
       SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
+      CODE_SIGN_ENTITLEMENTS: Apps/iOS/SupportingFiles/Blau.entitlements
       TARGETED_DEVICE_FAMILY: 1
       SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: false
       SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false

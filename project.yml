@@ -40,4 +40,4 @@ targets:
       VALIDATE_WORKSPACE: true
     dependencies:
       - package: capsule-swift-sdk
-        product: swift-sdk
+        product: CapsuleSwift

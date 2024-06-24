@@ -10,91 +10,118 @@ struct OnboardingView: View {
     }
 
     @Environment(\.authorizationController) private var authorizationController
+    @Environment(\.keyManager) private var keyManager
+    @Environment(\.settings) private var settings
 
     @FocusState private var focusedField: FocusField?
 
     @State var email: String = ""
-    @State var isEmailProcessing: Bool = false
     @State var showVerify: Bool = false
     @State var code: String = ""
+    @State var isEmailProcessing: Bool = false
     @State var isCodeProcessing: Bool = false
-
-    @StateObject var capsule = Capsule(environment: .beta(jsBridgeUrl: nil),
-                                       apiKey: CAPSULE_API_KEY)
+    @State var isLoginProcessing: Bool = false
 
     @Binding var presentOnboard: Bool
     var body: some View {
-        NavigationStack {
-            ZStack {
-                CapsuleWebView(capsule: capsule).hidden()
-                VStack {
-                    Form {
-                        Section {
-                            TextField(text: $email) {
-                                Text("Email Address")
-                            }
-                            .focused($focusedField, equals: .email)
-                            .textContentType(.emailAddress)
-                            .keyboardType(.emailAddress)
-                            .autocorrectionDisabled()
-                            .autocapitalization(.none)
+        @Bindable var settings = settings
 
+        NavigationStack {
+//            ZStack {
+//                CapsuleWebView(capsule: keyManager.capsule).hidden()
+            VStack {
+                Form {
+                    Section {
+                        TextField(text: $email) {
+                            Text("Email Address")
+                        }
+                        .focused($focusedField, equals: .email)
+                        .textContentType(.emailAddress)
+                        .keyboardType(.emailAddress)
+                        .autocorrectionDisabled()
+                        .autocapitalization(.none)
+
+                        Button {
+                            signUp(email: email)
+                        } label: {
+                            HStack(spacing: 2) {
+                                if isEmailProcessing {
+                                    ProgressView()
+                                }
+                                Text("Sign Up")
+                            }
+                        }.disabled(showVerify || isEmailProcessing)
+
+                        Button {
+                            login()
+                        } label: {
+                            HStack(spacing: 2) {
+                                if isLoginProcessing {
+                                    ProgressView()
+                                }
+                                Text("Login")
+                            }
+                        }
+                    }
+
+                    if showVerify {
+                        Section {
+                            TextField(text: $code) {
+                                Text("Verification Code")
+                            }
+                            .focused($focusedField, equals: .code)
+                            .textContentType(.oneTimeCode)
+                            .keyboardType(.numberPad)
                             Button {
-                                login(email: email)
+                                verify(code: code)
                             } label: {
                                 HStack(spacing: 2) {
-                                    if isEmailProcessing {
+                                    if isCodeProcessing {
                                         ProgressView()
                                     }
-                                    Text("Login")
+                                    Text("Verify")
                                 }
-                            }.disabled(showVerify || isEmailProcessing)
-                        }
-
-                        if showVerify {
-                            Section {
-                                TextField(text: $code) {
-                                    Text("Verification Code")
-                                }
-                                .focused($focusedField, equals: .code)
-                                .textContentType(.oneTimeCode)
-                                .keyboardType(.numberPad)
-                                Button {
-                                    verify(code: code)
-                                } label: {
-                                    HStack(spacing: 2) {
-                                        if isCodeProcessing {
-                                            ProgressView()
-                                        }
-                                        Text("Verify")
-                                    }
-                                }.disabled(isCodeProcessing)
-                            }
+                            }.disabled(isCodeProcessing)
                         }
                     }
                 }
             }
-            .navigationTitle("Login")
         }
+        .navigationTitle("Login")
         .onAppear {
             focusedField = .email
         }
     }
 
-    private func login(email: String) {
+    private func signUp(email: String) {
         Task {
             do {
                 isEmailProcessing = true
-                let userExists = try await capsule.checkIfUserExists(email: email)
+                let userExists = try await keyManager.capsule.checkIfUserExists(email: email)
                 if userExists {
+                    isEmailProcessing = false
+                    settings.presentOnboard = false
                     return
                 }
-                try await capsule.createUser(email: email)
+                try await keyManager.capsule.createUser(email: email)
                 showVerify = true
                 focusedField = .code
                 isEmailProcessing = false
             } catch {
                 isEmailProcessing = false
+                print("SIGNUP: \(error)")
+            }
+        }
+    }
+
+    private func login() {
+        Task {
+            do {
+                isLoginProcessing = true
+                try await keyManager.capsule.login(authorizationController: authorizationController)
+                isLoginProcessing = false
+                presentOnboard = false
+            } catch {
                 print("LOGIN: \(error)")
             }
         }
@@ -104,13 +131,18 @@ struct OnboardingView: View {
         Task {
             do {
                 isCodeProcessing = true
-                let biometricsId = try await capsule.verify(verificationCode: code)
+                let biometricsId = try await keyManager.capsule.verify(verificationCode: code)
+                print("generating passkey")
+                try await keyManager.capsule.generatePasskey(email: email,
+                                                             biometricsId: biometricsId,
+                                                             authorizationController: authorizationController)
+                print("creating wallet")
+                try await keyManager.capsule.createWallet(skipDistributable: false)
 
-                try await capsule.generatePasskey(email: email,
-                                                  biometricsId: biometricsId,
-                                                  authorizationController: authorizationController)
-                try await capsule.createWallet(skipDistributable: false)
+                print("setting email")
+                settings.emailAddress = email
                 isCodeProcessing = false
+                presentOnboard = false
             } catch {
                 print("VERIFY: \(error)")
             }

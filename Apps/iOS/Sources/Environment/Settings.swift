@@ -4,6 +4,7 @@
 import SwiftUI
 
 @Observable class Settings {
+    var presentOnboard = false
     var emailAddress: String? = UserDefaults.standard.string(forKey: "application_open_count") {
         didSet {
             UserDefaults.standard.setValue(emailAddress, forKey: "application_email_address")

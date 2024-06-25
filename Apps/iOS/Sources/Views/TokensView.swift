@@ -10,7 +10,7 @@ struct TokensView: View {
     @Environment(\.settings) private var settings
 
     let avatarBeam = AvatarBeam()
-    
+
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {

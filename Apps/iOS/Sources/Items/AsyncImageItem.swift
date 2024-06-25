@@ -32,7 +32,7 @@ struct AsyncImageItem: View {
                         .transition(.scale(scale: 0.1, anchor: .center))
                 case let .failure(error):
 //                    VStack {
-                        Text(error.localizedDescription)
+                    Text(error.localizedDescription)
 //                        Image(systemName: "circle.slash")
 //                    }
                 @unknown default:

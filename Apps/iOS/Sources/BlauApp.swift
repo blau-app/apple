@@ -22,10 +22,19 @@ struct BlauApp: App {
             switch scenePhase {
             case .active:
                 print("auto login")
+
                 // TODO: Check if a user has an account then auto login
                 Task {
                     do {
-                        try await keyManager.capsule.login(authorizationController: authorizationController)
+                        let isSessionActive = try await keyManager.capsule.isSessionActive()
+                        let isFullyLoggedIn = try await keyManager.capsule.isFullyLoggedIn()
+                        print("""
+                            \(isSessionActive ? "✅" : "❎"): Session Active
+                            \(isFullyLoggedIn ? "✅" : "❎"): Fully Logged In
+                        """)
+                        if (isSessionActive && !isFullyLoggedIn) {
+                            try await keyManager.capsule.login(authorizationController: authorizationController)
+                        }
                     } catch {
                         print("SCENE LOGIN: \(error)")
                     }

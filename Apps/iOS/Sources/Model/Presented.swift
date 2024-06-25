@@ -1,9 +1,5 @@
-//
-//  Presented.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/23/24.
-//
+// Presented.swift
+// Copyright (c) 2024 Party Labs, Inc
 
 import Foundation
 

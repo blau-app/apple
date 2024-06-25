@@ -20,7 +20,9 @@ struct BlauApp: App {
         }
         .onChange(of: scenePhase) { _, _ in
             switch scenePhase {
-            case .active where !settings.presentOnboard:
+            case .active:
+                print("auto login")
+                // TODO: Check if a user has an account then auto login
                 Task {
                     do {
                         try await keyManager.capsule.login(authorizationController: authorizationController)
@@ -28,7 +30,7 @@ struct BlauApp: App {
                         print("SCENE LOGIN: \(error)")
                     }
                 }
-            case .active, .background, .inactive: break
+            case .background, .inactive: break
             @unknown default: break
             }
         }

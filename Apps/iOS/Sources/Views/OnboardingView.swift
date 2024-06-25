@@ -22,7 +22,6 @@ struct OnboardingView: View {
     @State var isCodeProcessing: Bool = false
     @State var isLoginProcessing: Bool = false
 
-    @Binding var presentOnboard: Bool
     var body: some View {
         @Bindable var settings = settings
 
@@ -100,7 +99,7 @@ struct OnboardingView: View {
                 let userExists = try await keyManager.capsule.checkIfUserExists(email: email)
                 if userExists {
                     isEmailProcessing = false
-                    settings.presentOnboard = false
+                    settings.presented = nil
                     return
                 }
                 try await keyManager.capsule.createUser(email: email)
@@ -120,7 +119,7 @@ struct OnboardingView: View {
                 isLoginProcessing = true
                 try await keyManager.capsule.login(authorizationController: authorizationController)
                 isLoginProcessing = false
-                presentOnboard = false
+                settings.presented = nil
             } catch {
                 print("LOGIN: \(error)")
             }
@@ -142,7 +141,7 @@ struct OnboardingView: View {
                 print("setting email")
                 settings.emailAddress = email
                 isCodeProcessing = false
-                presentOnboard = false
+                settings.presented = nil
             } catch {
                 print("VERIFY: \(error)")
             }
@@ -151,5 +150,5 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView(presentOnboard: .constant(true))
+    OnboardingView()
 }

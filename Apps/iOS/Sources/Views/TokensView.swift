@@ -9,6 +9,8 @@ struct TokensView: View {
     @Environment(\.keyManager) private var keyManager
     @Environment(\.settings) private var settings
 
+    let avatarBeam = AvatarBeam()
+    
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {
@@ -31,12 +33,12 @@ struct TokensView: View {
                                 Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
                             }
                         }, label: {
-                            AsyncImageItem(imageURI: "https://avatar.blau.app/beam?name=boomba", width: 32, height: 32)
+                            avatarBeam.createAvatarView(name: "Need Key", size: 32)
                         })
                     }
                 }
         }
-        .fullScreenCover(isPresented: $settings.presentOnboard, onDismiss: {
+        .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {
                 do {
                     let wallets = try await keyManager.capsule.fetchWallets()
@@ -45,21 +47,16 @@ struct TokensView: View {
                     print("LOAD WALLETS \(error)")
                 }
             }
-        }, content: {
-            OnboardingView(presentOnboard: $settings.presentOnboard)
+        }, content: { presented in
+            switch presented {
+            case .accounts: AccountsView()
+            case .onboarding: OnboardingView()
+            }
         })
     }
 
     private func accounts() {
-        Task {
-            do {
-                let isActive = try await keyManager.capsule.isSessionActive()
-
-                print(isActive)
-            } catch {
-                print("Session Active \(error)")
-            }
-        }
+        settings.presented = .accounts
     }
 
     private func logout() {

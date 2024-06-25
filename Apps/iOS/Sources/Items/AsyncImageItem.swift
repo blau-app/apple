@@ -30,8 +30,11 @@ struct AsyncImageItem: View {
                     image.resizable()
                         .aspectRatio(contentMode: .fit)
                         .transition(.scale(scale: 0.1, anchor: .center))
-                case .failure:
-                    Image(systemName: "circle.slash")
+                case let .failure(error):
+//                    VStack {
+                        Text(error.localizedDescription)
+//                        Image(systemName: "circle.slash")
+//                    }
                 @unknown default:
                     EmptyView()
                 }

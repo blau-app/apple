@@ -14,22 +14,7 @@ struct TokensView: View {
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {
-            ContentUnavailableView {
-                Label("Claim Free Tokens", systemImage: "bitcoinsign.circle")
-            } description: {
-                Text("We are going to get you started with some free tokens. You can also send tokens to your wallet address")
-            } actions: {
-                Button {} label: {
-                    Label("Receive Tokens", systemImage: "qrcode")
-                        .fontWeight(.bold)
-                }.buttonStyle(.bordered)
-                    .controlSize(.large)
-                Button {} label: {
-                    Label("Claim Free Tokens", systemImage: "square.and.arrow.down")
-                        .fontWeight(.bold)
-                }.buttonStyle(.borderedProminent)
-                    .controlSize(.large)
-            }
+            Empty()
             .navigationTitle("Tokens")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -69,6 +54,30 @@ struct TokensView: View {
             case .accounts: AccountsView()
             }
         })
+    }
+    
+    @ViewBuilder
+    private func Empty() -> some View {
+        ContentUnavailableView {
+            Label("Load Account", image: "piggy-bank")
+        } description: {
+            Text("We are going to get you started with some free tokens. You can also send tokens to your account.")
+        } actions: {
+            Button {} label: {
+                Label("Watch Account", systemImage: "eye")
+                    .fontWeight(.bold)
+            }.controlSize(.large)
+            Button {} label: {
+                Label("Deposit Tokens", systemImage: "qrcode")
+                    .fontWeight(.bold)
+            }.buttonStyle(.bordered)
+                .controlSize(.large)
+            Button {} label: {
+                Label("Claim Free Tokens", image: "hand-coins")
+                    .fontWeight(.bold)
+            }.buttonStyle(.borderedProminent)
+                .controlSize(.large)
+        }
     }
 
     private func accounts() {

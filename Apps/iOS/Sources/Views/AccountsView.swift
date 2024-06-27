@@ -52,7 +52,7 @@ struct AccountsView: View {
         }
         .task {
             do {
-//                wallets = try await capsuleManager.fetchWallets()
+                wallets = try await capsuleManager.fetchWallets()
                 loading = false
             } catch {
                 print("SESSION ACTIVE: \(error)")

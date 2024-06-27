@@ -13,7 +13,7 @@ struct AccountsView: View {
     @State private var showLogoutAlert = false
     @State private var loading: Bool = true
     @State private var wallets: [Wallet] = .init()
-
+    
     var body: some View {
         NavigationView {
             Group {
@@ -28,13 +28,7 @@ struct AccountsView: View {
                 case false:
                     List {
                         ForEach(wallets, id: \.address) { wallet in
-                            LabeledContent {
-                                Text(wallet.name ?? "")
-                                Text(wallet.keyGenComplete?.description ?? "-")
-                            } label: {
-                                Text(wallet.address ?? "addy")
-                                Text(wallet.publicKey ?? "pubk")
-                            }
+                            WalletItem(wallet: wallet)
                         }
                     }
                 }

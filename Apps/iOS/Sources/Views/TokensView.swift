@@ -9,7 +9,7 @@ struct TokensView: View {
     @Environment(\.authorizationController) private var authorizationController
     @Environment(\.settings) private var settings
 
-    let avatarBeam = AvatarBeam()
+    private let avatarBeam = AvatarBeam()
 
     var body: some View {
         @Bindable var settings = settings

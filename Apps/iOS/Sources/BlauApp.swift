@@ -7,41 +7,30 @@ import SwiftUI
 @main
 struct BlauApp: App {
     @Environment(\.authorizationController) private var authorizationController
-    @Environment(\.keyManager) private var keyManager
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.settings) private var settings
+
+    @StateObject private var capsuleManager = CapsuleManager(environment: .beta(jsBridgeUrl: nil),
+                                                             apiKey: CAPSULE_API_KEY)
 
     var body: some Scene {
         WindowGroup {
             ZStack {
-                CapsuleWebView(capsule: keyManager.capsule).hidden()
-                TokensView()
-            }
-        }
-        .onChange(of: scenePhase) { _, _ in
-            switch scenePhase {
-            case .active:
-                print("auto login")
-
-                // TODO: Check if a user has an account then auto login
-                Task {
-                    do {
-                        let isSessionActive = try await keyManager.capsule.isSessionActive()
-                        let isFullyLoggedIn = try await keyManager.capsule.isFullyLoggedIn()
-                        print("""
-                            \(isSessionActive ? "✅" : "❎"): Session Active
-                            \(isFullyLoggedIn ? "✅" : "❎"): Fully Logged In
-                        """)
-                        if (isSessionActive && !isFullyLoggedIn) {
-                            try await keyManager.capsule.login(authorizationController: authorizationController)
-                        }
-                    } catch {
-                        print("SCENE LOGIN: \(error)")
+                CapsuleWebView(capsuleManager: capsuleManager).hidden()
+                VStack {
+                    switch capsuleManager.sessionState {
+                    case .unknown:
+                        LoadingView()
+                    case .inactive:
+                        OnboardingView()
+                    case .active:
+                        LoginView()
+                    case .activeLoggedIn:
+                        TokensView()
                     }
                 }
-            case .background, .inactive: break
-            @unknown default: break
             }
+            .environmentObject(capsuleManager)
         }
     }
 }

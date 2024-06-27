@@ -5,24 +5,37 @@ import CapsuleSwift
 import SwiftUI
 
 struct AccountsView: View {
+    @EnvironmentObject var capsuleManager: CapsuleManager
     @Environment(\.authorizationController) private var authorizationController
-    @Environment(\.keyManager) private var keyManager
     @Environment(\.settings) private var settings
     @Environment(\.dismiss) private var dismiss
 
+    @State var loading: Bool = true
     @State var wallets: [Wallet] = .init()
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(wallets, id: \.address) { wallet in
+            Group {
+                switch loading {
+                case true:
 
-                    LabeledContent {
-                        Text(wallet.name ?? "")
-                        Text(wallet.keyGenComplete?.description ?? "-")
-                    } label: {
-                        Text(wallet.address ?? "addy")
-                        Text(wallet.publicKey ?? "pubk")
+                    ContentUnavailableView {
+                        ProgressView().controlSize(.extraLarge).padding(.bottom, -8)
+                        Label("Loading", systemImage: "")
+                    } description: {
+                        Text("Loading")
+                    }
+                case false:
+                    List {
+                        ForEach(wallets, id: \.address) { wallet in
+                            LabeledContent {
+                                Text(wallet.name ?? "")
+                                Text(wallet.keyGenComplete?.description ?? "-")
+                            } label: {
+                                Text(wallet.address ?? "addy")
+                                Text(wallet.publicKey ?? "pubk")
+                            }
+                        }
                     }
                 }
             }
@@ -39,7 +52,8 @@ struct AccountsView: View {
         }
         .task {
             do {
-                wallets = try await keyManager.capsule.fetchWallets()
+//                wallets = try await capsuleManager.fetchWallets()
+                loading = false
             } catch {
                 print("SESSION ACTIVE: \(error)")
             }
@@ -49,4 +63,6 @@ struct AccountsView: View {
 
 #Preview {
     AccountsView()
+        .environmentObject(CapsuleManager(environment: .beta(jsBridgeUrl: nil),
+                                          apiKey: ""))
 }

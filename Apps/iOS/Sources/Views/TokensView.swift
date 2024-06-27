@@ -5,8 +5,8 @@ import CapsuleSwift
 import SwiftUI
 
 struct TokensView: View {
+    @EnvironmentObject var capsuleManager: CapsuleManager
     @Environment(\.authorizationController) private var authorizationController
-    @Environment(\.keyManager) private var keyManager
     @Environment(\.settings) private var settings
 
     let avatarBeam = AvatarBeam()
@@ -14,34 +14,51 @@ struct TokensView: View {
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {
-            ContentUnavailableView("No Tokens",
-                                   systemImage: "circle.slash",
-                                   description: Text("No tokens yet..."))
-                .navigationTitle("Tokens")
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Menu(content: {
-                            Button {
-                                accounts()
-                            } label: {
-                                Label("Accounts", systemImage: "person.text.rectangle")
-                            }
-                            Divider()
-                            Button(role: .destructive) {
-                                logout()
-                            } label: {
-                                Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
-                            }
-                        }, label: {
-                            avatarBeam.createAvatarView(name: "Need Key", size: 32)
-                        })
-                    }
+            ContentUnavailableView {
+                Label("Claim Free Tokens", systemImage: "bitcoinsign.circle")
+            } description: {
+                Text("We are going to get you started with some free tokens. You can also send tokens to your wallet address")
+            } actions: {
+                Button {} label: {
+                    Label("Receive Tokens", systemImage: "qrcode")
+                        .fontWeight(.bold)
+                }.buttonStyle(.bordered)
+                    .controlSize(.large)
+                Button {} label: {
+                    Label("Claim Free Tokens", systemImage: "square.and.arrow.down")
+                        .fontWeight(.bold)
+                }.buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+            }
+            .navigationTitle("Tokens")
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Menu(content: {
+                        Button {
+                            accounts()
+                        } label: {
+                            Label("Accounts", systemImage: "person.text.rectangle")
+                        }
+                        Divider()
+                        Button(role: .destructive) {
+                            logout()
+                        } label: {
+                            Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
+                        }
+                    }, label: {
+                        switch capsuleManager.wallet?.publicKey {
+                        case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
+                                                                               size: 32)
+                        case .none: Image(systemName: "exclamationmark.triangle")
+                        }
+                    })
                 }
+            }
         }
         .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {
                 do {
-                    let wallets = try await keyManager.capsule.fetchWallets()
+                    let wallets = try await capsuleManager.fetchWallets()
                     print(wallets)
                 } catch {
                     print("LOAD WALLETS \(error)")
@@ -50,7 +67,6 @@ struct TokensView: View {
         }, content: { presented in
             switch presented {
             case .accounts: AccountsView()
-            case .onboarding: OnboardingView()
             }
         })
     }
@@ -62,7 +78,7 @@ struct TokensView: View {
     private func logout() {
         Task {
             do {
-                try await keyManager.capsule.logout()
+                try await capsuleManager.logout()
             } catch {
                 print("LOGOUT: \(error.localizedDescription)")
             }
@@ -72,4 +88,6 @@ struct TokensView: View {
 
 #Preview {
     TokensView()
+        .environmentObject(CapsuleManager(environment: .beta(jsBridgeUrl: nil),
+                                          apiKey: ""))
 }

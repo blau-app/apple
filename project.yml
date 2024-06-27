@@ -11,9 +11,11 @@ options:
   preGenCommand: .github/scripts/pre.sh
   postGenCommand: .github/scripts/post.sh
 packages:
+  # capsule-swift-sdk:
+  #   url: https://github.com/capsule-org/swift-sdk.git
+  #   branch: initial-branch
   capsule-swift-sdk:
-    url: https://github.com/capsule-org/swift-sdk.git
-    branch: initial-branch
+    path: ../swift-sdk
 targets:
   Blau:
     type: application

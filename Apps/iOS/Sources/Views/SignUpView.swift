@@ -1,10 +1,10 @@
-// OnboardingView.swift
+// SignUpView.swift
 // Copyright (c) 2024 Party Labs, Inc
 
 import CapsuleSwift
 import SwiftUI
 
-struct OnboardingView: View {
+struct SignUpView: View {
     enum FocusField: Hashable {
         case email, code
     }
@@ -84,13 +84,8 @@ struct OnboardingView: View {
         Task {
             do {
                 isEmailProcessing = true
-                let userExists = try await capsuleManager.checkIfUserExists(email: email)
-                if userExists {
-                    isEmailProcessing = false
-
-                    let isSessionActive = try await capsuleManager.isSessionActive()
-                    print(isSessionActive)
-                    settings.presented = nil
+                guard try await !capsuleManager.checkIfUserExists(email: email) else {
+                    try await capsuleManager.login(authorizationController: authorizationController)
                     return
                 }
                 try await capsuleManager.createUser(email: email)
@@ -127,5 +122,5 @@ struct OnboardingView: View {
 }
 
 #Preview {
-    OnboardingView()
+    SignUpView()
 }

@@ -10,18 +10,18 @@ struct AccountsView: View {
     @Environment(\.settings) private var settings
     @Environment(\.dismiss) private var dismiss
 
-    @State var loading: Bool = true
-    @State var wallets: [Wallet] = .init()
+    @State private var showLogoutAlert = false
+    @State private var loading: Bool = true
+    @State private var wallets: [Wallet] = .init()
 
     var body: some View {
         NavigationView {
             Group {
                 switch loading {
                 case true:
-
                     ContentUnavailableView {
-                        ProgressView().controlSize(.extraLarge).padding(.bottom, -8)
-                        Label("Loading", systemImage: "")
+                        ProgressView().controlSize(.extraLarge)
+                        Text("Loading").fontWeight(.bold)
                     } description: {
                         Text("Loading")
                     }
@@ -47,6 +47,19 @@ struct AccountsView: View {
                         Label("Close", systemImage: "xmark")
                     }
                 }
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showLogoutAlert = true
+                    } label: {
+                        Text("Logout")
+                    }
+                    .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
+                        Button("Cancel", role: .cancel) {}
+                        Button("Logout", role: .destructive) {
+                            logout()
+                        }
+                    }
+                }
             }
             .navigationTitle("Accounts")
         }
@@ -56,6 +69,16 @@ struct AccountsView: View {
                 loading = false
             } catch {
                 print("SESSION ACTIVE: \(error)")
+            }
+        }
+    }
+
+    private func logout() {
+        Task {
+            do {
+                try await capsuleManager.logout()
+            } catch {
+                print("LOGOUT: \(error.localizedDescription)")
             }
         }
     }

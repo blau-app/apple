@@ -7,19 +7,23 @@ import SwiftUI
 struct LoginView: View {
     @EnvironmentObject var capsuleManager: CapsuleManager
     @Environment(\.authorizationController) private var authorizationController
+    @Environment(\.auth) private var auth
 
     var body: some View {
+        let biometryType = auth.context.biometryType
         ContentUnavailableView {
-            Label("Login", systemImage: "faceid")
+            Label(biometryType.labelText, systemImage: biometryType.systemImage)
+                .symbolRenderingMode(.hierarchical)
         } description: {
-            Text("Login with biometrics to unlock your wallet and manage your tokens.")
+            Text(biometryType.description)
         } actions: {
             Button {
                 login()
             } label: {
-                Text("Login")
+                Label(biometryType.labelText, systemImage: biometryType.systemImage)
                     .fontWeight(.bold)
-            }.buttonStyle(.borderedProminent)
+            }.disabled(!biometryType.isSupported)
+                .buttonStyle(.borderedProminent)
                 .controlSize(.large)
         }
     }

@@ -15,30 +15,24 @@ struct TokensView: View {
         @Bindable var settings = settings
         NavigationStack {
             Empty()
-            .navigationTitle("Tokens")
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Menu(content: {
-                        Button {
-                            accounts()
-                        } label: {
-                            Label("Accounts", systemImage: "person.text.rectangle")
-                        }
-                        Divider()
-                        Button(role: .destructive) {
-                            logout()
-                        } label: {
-                            Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
-                        }
-                    }, label: {
-                        switch capsuleManager.wallet?.publicKey {
-                        case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
-                                                                               size: 32)
-                        case .none: Image(systemName: "exclamationmark.triangle")
-                        }
-                    })
+                .navigationTitle("Tokens")
+                .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Menu(content: {
+                            Button {
+                                accounts()
+                            } label: {
+                                Label("Accounts", systemImage: "person.text.rectangle")
+                            }
+                        }, label: {
+                            switch capsuleManager.wallet?.publicKey {
+                            case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
+                                                                                   size: 32)
+                            case .none: Image(systemName: "exclamationmark.triangle")
+                            }
+                        })
+                    }
                 }
-            }
         }
         .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {
@@ -55,7 +49,7 @@ struct TokensView: View {
             }
         })
     }
-    
+
     @ViewBuilder
     private func Empty() -> some View {
         ContentUnavailableView {
@@ -82,16 +76,6 @@ struct TokensView: View {
 
     private func accounts() {
         settings.presented = .accounts
-    }
-
-    private func logout() {
-        Task {
-            do {
-                try await capsuleManager.logout()
-            } catch {
-                print("LOGOUT: \(error.localizedDescription)")
-            }
-        }
     }
 }
 

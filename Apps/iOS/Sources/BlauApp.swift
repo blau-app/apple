@@ -21,11 +21,11 @@ struct BlauApp: App {
                     switch capsuleManager.sessionState {
                     case .unknown:
                         LoadingView()
+                    case .noUser:
+                        SignUpView()
                     case .inactive:
-                        OnboardingView()
-                    case .active:
                         LoginView()
-                    case .activeLoggedIn:
+                    case .active:
                         TokensView()
                     }
                 }

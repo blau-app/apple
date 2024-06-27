@@ -6,8 +6,8 @@ import SwiftUI
 struct LoadingView: View {
     var body: some View {
         ContentUnavailableView {
-            ProgressView().controlSize(.extraLarge).padding(.bottom, -8)
-            Label("Loading", systemImage: "")
+            ProgressView().controlSize(.extraLarge)
+            Text("Loading").fontWeight(.bold)
         } description: {
             Text("Initializing keychain for secure self-custody transactions")
         }

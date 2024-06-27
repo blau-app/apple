@@ -5,11 +5,6 @@ import SwiftUI
 
 @Observable class Settings {
     var presented: Presented?
-    var emailAddress: String? = UserDefaults.standard.string(forKey: "application_open_count") {
-        didSet {
-            UserDefaults.standard.setValue(emailAddress, forKey: "application_email_address")
-        }
-    }
 }
 
 struct SettingsKey: EnvironmentKey {

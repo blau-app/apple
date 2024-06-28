@@ -3,7 +3,7 @@
 
 import SwiftUI
 
-enum Filter: Filterable {
+enum AccountTypeFilter: Filterable {
     var id: Self { self }
     case allKeys
     case privateKeys

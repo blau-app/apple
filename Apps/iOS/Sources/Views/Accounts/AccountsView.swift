@@ -10,7 +10,7 @@ struct AccountsView: View {
     @Environment(\.settings) private var settings
     @Environment(\.dismiss) private var dismiss
 
-    @State private var filter: Filter = .allKeys
+    @State private var filter: AccountTypeFilter = .allKeys
     @State private var showLogoutAlert = false
     @State private var loading: Bool = true
     @State private var wallets: [Wallet] = .init()
@@ -37,16 +37,16 @@ struct AccountsView: View {
                                 ForEach(wallets, id: \.address) { wallet in
                                     WalletItem(wallet: wallet)
                                 }
-                                ForEach(settings.publicAccounts, id: \.address) { _ in
-                                    Text("Public Account")
+                                ForEach(settings.publicAccounts, id: \.address) { publicAccount in
+                                    PublicAccountItem(publicAccount: publicAccount)
                                 }
                             case .privateKeys:
                                 ForEach(wallets, id: \.address) { wallet in
                                     WalletItem(wallet: wallet)
                                 }
                             case .publicKeys:
-                                ForEach(settings.publicAccounts, id: \.address) { _ in
-                                    Text("Public Account")
+                                ForEach(settings.publicAccounts, id: \.address) { publicAccount in
+                                    PublicAccountItem(publicAccount: publicAccount)
                                 }
                             }
                         }

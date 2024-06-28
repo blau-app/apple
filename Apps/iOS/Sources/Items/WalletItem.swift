@@ -5,8 +5,6 @@ import CapsuleSwift
 import SwiftUI
 
 struct WalletItem: View {
-    @Environment(\.colorScheme) private var colorScheme
-
     var wallet: Wallet
     private let avatarBeam = AvatarBeam()
 

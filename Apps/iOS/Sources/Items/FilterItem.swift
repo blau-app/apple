@@ -48,6 +48,6 @@ struct FilterItem<T: Filterable>: View {
 }
 
 #Preview {
-    @State var filter: Filter = .allKeys
+    @State var filter: AccountTypeFilter = .allKeys
     return FilterItem(filter: $filter)
 }

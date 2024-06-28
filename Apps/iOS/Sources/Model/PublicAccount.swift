@@ -3,7 +3,7 @@
 
 import Foundation
 
-struct PublicAccount {
+struct PublicAccount: Codable {
     var name: String
     var address: String
 }

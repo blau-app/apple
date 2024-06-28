@@ -38,7 +38,6 @@ struct TokensView: View {
             Task {
                 do {
                     let wallets = try await capsuleManager.fetchWallets()
-                    print(wallets)
                 } catch {
                     print("LOAD WALLETS \(error)")
                 }
@@ -46,6 +45,7 @@ struct TokensView: View {
         }, content: { presented in
             switch presented {
             case .accounts: AccountsView()
+            case .addAccount: AddPublicAccountView()
             }
         })
     }
@@ -57,7 +57,7 @@ struct TokensView: View {
         } description: {
             Text("We are going to get you started with some free tokens. You can also send tokens to your account.")
         } actions: {
-            Button {} label: {
+            Button { settings.presented = .addAccount } label: {
                 Label("Watch Account", systemImage: "eye")
                     .fontWeight(.bold)
             }.controlSize(.large)

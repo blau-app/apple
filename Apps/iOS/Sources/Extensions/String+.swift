@@ -30,4 +30,13 @@ extension String {
 
         return result
     }
+
+    func isValidENSName() -> Bool {
+        let regex = try? NSRegularExpression(pattern: "^[a-z0-9]+[a-z0-9-]*[a-z0-9]+\\.eth$", options: .caseInsensitive)
+        return regex?.firstMatch(in: self, options: [], range: NSRange(location: 0, length: count)) != nil
+    }
+
+    var noSpace: String {
+        components(separatedBy: .whitespacesAndNewlines).joined()
+    }
 }

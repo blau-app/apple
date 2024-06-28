@@ -14,7 +14,6 @@ struct AccountsView: View {
     @State private var showLogoutAlert = false
     @State private var loading: Bool = true
     @State private var wallets: [Wallet] = .init()
-    @State private var publicAccounts: [PublicAccount] = .init()
 
     var body: some View {
         NavigationView {
@@ -38,7 +37,7 @@ struct AccountsView: View {
                                 ForEach(wallets, id: \.address) { wallet in
                                     WalletItem(wallet: wallet)
                                 }
-                                ForEach(publicAccounts, id: \.address) { _ in
+                                ForEach(settings.publicAccounts, id: \.address) { _ in
                                     Text("Public Account")
                                 }
                             case .privateKeys:
@@ -46,7 +45,7 @@ struct AccountsView: View {
                                     WalletItem(wallet: wallet)
                                 }
                             case .publicKeys:
-                                ForEach(publicAccounts, id: \.address) { _ in
+                                ForEach(settings.publicAccounts, id: \.address) { _ in
                                     Text("Public Account")
                                 }
                             }
@@ -82,7 +81,7 @@ struct AccountsView: View {
         }
         .task {
             do {
-//                wallets = try await capsuleManager.fetchWallets()
+                wallets = try await capsuleManager.fetchWallets()
                 loading = false
             } catch {
                 print("SESSION ACTIVE: \(error)")

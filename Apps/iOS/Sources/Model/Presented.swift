@@ -6,4 +6,5 @@ import Foundation
 enum Presented: CaseIterable, Identifiable {
     var id: Self { self }
     case accounts
+    case addAccount
 }

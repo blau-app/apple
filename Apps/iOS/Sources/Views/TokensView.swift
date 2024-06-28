@@ -10,11 +10,12 @@ struct TokensView: View {
     @Environment(\.settings) private var settings
 
     private let avatarBeam = AvatarBeam()
+    @State private var tokenTypeFilter: TokenTypeFilter = .allTokens
 
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {
-            Empty()
+            Tokens()
                 .navigationTitle("Tokens")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -71,6 +72,15 @@ struct TokensView: View {
                     .fontWeight(.bold)
             }.buttonStyle(.borderedProminent)
                 .controlSize(.large)
+        }
+    }
+
+    @ViewBuilder func Tokens() -> some View {
+        List {
+            Section {} header: {
+                FilterItem(filter: $tokenTypeFilter)
+                    .padding(.horizontal, SECTION_HEADER_PADDING)
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-// Filter.swift
+// AccountTypeFilter.swift
 // Copyright (c) 2024 Party Labs, Inc
 
 import SwiftUI
@@ -9,19 +9,11 @@ enum AccountTypeFilter: Filterable {
     case privateKeys
     case publicKeys
 
-    var title: String {
+    var label: Label<Text, Image> {
         switch self {
-        case .allKeys: "All"
-        case .privateKeys: "Private"
-        case .publicKeys: "Public"
-        }
-    }
-
-    var systemImage: String {
-        switch self {
-        case .allKeys: "key"
-        case .privateKeys: "lock"
-        case .publicKeys: "lock.open"
+        case .allKeys: Label("All", systemImage: "key")
+        case .privateKeys: Label("Private", systemImage: "lock")
+        case .publicKeys: Label("Public", systemImage: "lock.open")
         }
     }
 

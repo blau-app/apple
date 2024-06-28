@@ -10,7 +10,7 @@ struct AccountsView: View {
     @Environment(\.settings) private var settings
     @Environment(\.dismiss) private var dismiss
 
-    @State private var filter: AccountTypeFilter = .allKeys
+    @State private var accountType: AccountTypeFilter = .allKeys
     @State private var showLogoutAlert = false
     @State private var loading: Bool = true
     @State private var wallets: [Wallet] = .init()
@@ -29,10 +29,11 @@ struct AccountsView: View {
                 case false:
                     List {
                         Section {} header: {
-                            FilterItem(filter: $filter).padding(.horizontal, -20)
+                            FilterItem(filter: $accountType)
+                                .padding(.horizontal, SECTION_HEADER_PADDING)
                         }
                         Section {
-                            switch filter {
+                            switch accountType {
                             case .allKeys:
                                 ForEach(wallets, id: \.address) { wallet in
                                     WalletItem(wallet: wallet)

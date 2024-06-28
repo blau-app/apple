@@ -4,7 +4,6 @@
 import SwiftUI
 
 protocol Filterable: CaseIterable, Identifiable, Equatable {
-    var title: String { get }
-    var systemImage: String { get }
+    var label: Label<Text, Image> { get }
     var color: Color { get }
 }

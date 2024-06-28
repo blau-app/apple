@@ -10,10 +10,12 @@ struct AccountsView: View {
     @Environment(\.settings) private var settings
     @Environment(\.dismiss) private var dismiss
 
+    @State private var filter: Filter = .allKeys
     @State private var showLogoutAlert = false
     @State private var loading: Bool = true
     @State private var wallets: [Wallet] = .init()
-    
+    @State private var publicAccounts: [PublicAccount] = .init()
+
     var body: some View {
         NavigationView {
             Group {
@@ -27,10 +29,30 @@ struct AccountsView: View {
                     }
                 case false:
                     List {
-                        ForEach(wallets, id: \.address) { wallet in
-                            WalletItem(wallet: wallet)
+                        Section {} header: {
+                            FilterItem(filter: $filter).padding(.horizontal, -20)
+                        }
+                        Section {
+                            switch filter {
+                            case .allKeys:
+                                ForEach(wallets, id: \.address) { wallet in
+                                    WalletItem(wallet: wallet)
+                                }
+                                ForEach(publicAccounts, id: \.address) { _ in
+                                    Text("Public Account")
+                                }
+                            case .privateKeys:
+                                ForEach(wallets, id: \.address) { wallet in
+                                    WalletItem(wallet: wallet)
+                                }
+                            case .publicKeys:
+                                ForEach(publicAccounts, id: \.address) { _ in
+                                    Text("Public Account")
+                                }
+                            }
                         }
                     }
+                    .headerProminence(.increased)
                 }
             }
             .toolbar {
@@ -55,11 +77,12 @@ struct AccountsView: View {
                     }
                 }
             }
+            .toolbar(content: {})
             .navigationTitle("Accounts")
         }
         .task {
             do {
-                wallets = try await capsuleManager.fetchWallets()
+//                wallets = try await capsuleManager.fetchWallets()
                 loading = false
             } catch {
                 print("SESSION ACTIVE: \(error)")

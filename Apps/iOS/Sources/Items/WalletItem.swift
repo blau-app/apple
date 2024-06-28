@@ -1,12 +1,8 @@
-//
-//  AccountItem.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/27/24.
-//
+// WalletItem.swift
+// Copyright (c) 2024 Party Labs, Inc
 
-import SwiftUI
 import CapsuleSwift
+import SwiftUI
 
 struct WalletItem: View {
     @Environment(\.colorScheme) private var colorScheme
@@ -15,7 +11,6 @@ struct WalletItem: View {
     private let avatarBeam = AvatarBeam()
 
     var body: some View {
-        
         LabeledContent {
             Button {} label: {
                 Image(systemName: "doc.on.doc").padding(8)
@@ -26,9 +21,7 @@ struct WalletItem: View {
         } label: {
             HStack {
                 switch wallet.address {
-                case let .some(address): avatarBeam.createAvatarView(name: address,
-                                                                       size: 48)
-                    
+                case let .some(address): avatarBeam.createAvatarView(name: address, size: 40)
                 case .none: Image(systemName: "exclamationmark.triangle")
                 }
                 VStack(alignment: .leading) {

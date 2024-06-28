@@ -1,9 +1,5 @@
-//
-//  ColorScheme+.swift
-//  Blau
-//
-//  Created by Joe Blau on 6/27/24.
-//
+// ColorScheme+.swift
+// Copyright (c) 2024 Party Labs, Inc
 
 import SwiftUI
 
@@ -15,12 +11,11 @@ extension ColorScheme {
         default: return .normal
         }
     }
-    
+
     var ringColor: Color {
         switch self {
         case .dark: Color(UIColor.secondarySystemBackground)
         default: Color(UIColor.systemBackground)
-        
         }
     }
 }

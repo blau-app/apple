@@ -30,14 +30,15 @@ struct FilterItem<T: Filterable>: View {
             case true:
                 by.label
                     .font(.headline)
-                    .frame(height: 24)
+                    .frame(height: FILTER_HEIGHT)
                     .labelStyle(.titleAndIcon)
                     .frame(maxWidth: .infinity)
             case false:
                 by.label
                     .font(.headline)
-                    .frame(height: 24)
+                    .frame(height: FILTER_HEIGHT)
                     .labelStyle(.iconOnly)
+                    .padding([.horizontal], -6)
             }
         }
         .controlSize(.extraLarge)

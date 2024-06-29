@@ -14,7 +14,7 @@ enum TokenTypeFilter: Filterable {
         switch self {
         case .allTokens: Label("All", image: "piggy-bank")
         case .fungibleTokens: Label("Coins", image: "coins")
-        case .nonFungibleTokens: Label("NFTs", systemImage: "wallet.pass")
+        case .nonFungibleTokens: Label("Collectibles", systemImage: "wallet.pass")
         case .deFiTokens: Label("Bank", image: "landmark")
         }
     }

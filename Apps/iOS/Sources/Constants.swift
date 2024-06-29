@@ -9,4 +9,5 @@ func BEAM_AVATAR(address: String) -> String {
     "https://avatar.blau.app/beam?name=\(address)"
 }
 
-let SECTION_HEADER_PADDING: CGFloat = -30
+let SECTION_HEADER_PADDING: CGFloat = -24
+let FILTER_HEIGHT: CGFloat = 20

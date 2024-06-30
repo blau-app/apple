@@ -35,17 +35,25 @@ struct AccountsView: View {
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            showLogoutAlert = true
-                        } label: {
-                            Text("Logout")
-                        }
-                        .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
-                            Button("Cancel", role: .cancel) {}
-                            Button("Logout", role: .destructive) {
-                                logout()
+                        Menu(content: {
+                            Button { settings.presented = .addAccount } label: {
+                                Label("Watch Account", systemImage: "eye")
                             }
-                        }
+                            Divider()
+                            Button(role: .destructive) {
+                                showLogoutAlert = true
+                            } label: {
+                                Text("Logout")
+                            }
+                            .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
+                                Button("Cancel", role: .cancel) {}
+                                Button("Logout", role: .destructive) {
+                                    logout()
+                                }
+                            }
+                        }, label: {
+                            Image(systemName: "ellipsis")
+                        })
                     }
                 }
                 .toolbar(content: {})
@@ -118,9 +126,7 @@ struct AccountsView: View {
                 if let index = settings.watch.firstIndex(where: { $0.address == watch.address }) {
                     settings.watch.remove(at: index)
                 }
-            // remove public acocunt
             case .wallet:
-                // remove wallet
                 print("remove wallet")
             }
         }

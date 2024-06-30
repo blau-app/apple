@@ -20,8 +20,12 @@ struct TokensView: View {
             TokensContent()
                 .navigationTitle("Tokens")
                 .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
+                    ToolbarItem(placement: .topBarTrailing) {
                         Menu(content: {
+                            Button {} label: {
+                                Label("Deposit Tokens", systemImage: "qrcode")
+                            }
+                            Divider()
                             Button {
                                 accounts()
                             } label: {
@@ -65,19 +69,10 @@ struct TokensView: View {
     @ViewBuilder
     private func EmptyContent() -> some View {
         ContentUnavailableView {
-            Label("Load Account", image: "piggy-bank")
+            Label("Claim Free Tokens", image: "hand-coins")
         } description: {
-            Text("We are going to get you started with some free tokens. You can also send tokens to your account.")
+            Text("We are going to get you started with some free tokens and get you earnings in under 60 seconds.")
         } actions: {
-            Button { settings.presented = .addAccount } label: {
-                Label("Watch Account", systemImage: "eye")
-                    .fontWeight(.bold)
-            }.controlSize(.large)
-            Button {} label: {
-                Label("Deposit Tokens", systemImage: "qrcode")
-                    .fontWeight(.bold)
-            }.buttonStyle(.bordered)
-                .controlSize(.large)
             Button {} label: {
                 Label("Claim Free Tokens", image: "hand-coins")
                     .fontWeight(.bold)

@@ -16,6 +16,13 @@ struct AccountsView: View {
     @State var accountFilterType: AccountTypeFilter = .all
     @State var accounts: [Account] = .init()
 
+    var filteredAccounts: [Account] {
+        switch accountFilterType {
+        case .all: accounts
+        case .private, .watch: accounts.filter { $0.filter == accountFilterType }
+        }
+    }
+
     var body: some View {
         NavigationView {
             AccountsContent()
@@ -73,7 +80,7 @@ struct AccountsView: View {
 
             List {
                 Section {
-                    ForEach($accounts) { $account in
+                    ForEach(filteredAccounts) { account in
                         AccountItem(account: account)
                             .deleteDisabled(isWallet(account.type))
                     }.onDelete(perform: delete)

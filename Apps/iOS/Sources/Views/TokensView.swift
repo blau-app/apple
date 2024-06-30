@@ -8,14 +8,16 @@ struct TokensView: View {
     @EnvironmentObject var capsuleManager: CapsuleManager
     @Environment(\.authorizationController) private var authorizationController
     @Environment(\.settings) private var settings
+    @Environment(\.api) private var api
 
     private let avatarBeam = AvatarBeam()
     @State private var tokenTypeFilter: TokenTypeFilter = .allTokens
+    @State private var tokenBundles: [TokenBundle] = .init()
 
     var body: some View {
         @Bindable var settings = settings
         NavigationStack {
-            Tokens()
+            TokensContent()
                 .navigationTitle("Tokens")
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
@@ -39,6 +41,7 @@ struct TokensView: View {
             Task {
                 do {
                     let wallets = try await capsuleManager.fetchWallets()
+                    tokenBundles = api.getTokenBundles(addresses: wallets.compactMap { $0.address })
                 } catch {
                     print("LOAD WALLETS \(error)")
                 }
@@ -52,7 +55,15 @@ struct TokensView: View {
     }
 
     @ViewBuilder
-    private func Empty() -> some View {
+    private func TokensContent() -> some View {
+        switch tokenBundles.count {
+        case 0: EmptyContent()
+        default: TokenBundlesContent()
+        }
+    }
+
+    @ViewBuilder
+    private func EmptyContent() -> some View {
         ContentUnavailableView {
             Label("Load Account", image: "piggy-bank")
         } description: {
@@ -75,7 +86,8 @@ struct TokensView: View {
         }
     }
 
-    @ViewBuilder func Tokens() -> some View {
+    @ViewBuilder
+    private func TokenBundlesContent() -> some View {
         List {
             Section {} header: {
                 FilterItem(filter: $tokenTypeFilter)

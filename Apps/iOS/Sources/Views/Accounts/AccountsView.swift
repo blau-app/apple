@@ -75,6 +75,7 @@ struct AccountsView: View {
                 Section {
                     ForEach($accounts) { $account in
                         AccountItem(account: account)
+                            .deleteDisabled(isWallet(account.type))
                     }.onDelete(perform: delete)
                 } header: {
                     FilterItem(filter: $accountFilterType)
@@ -96,11 +97,20 @@ struct AccountsView: View {
         }
     }
 
+    private func isWallet(_ account: AccountType) -> Bool {
+        if case .wallet = account {
+            return true
+        }
+        return false
+    }
+
     private func delete(at offsets: IndexSet) {
         for offset in offsets {
             switch accounts[offset].type {
             case let .publicAccount(publicAccount):
-                print("remove public account")
+                if let index = settings.publicAccounts.firstIndex(where: { $0.address == publicAccount.address }) {
+                    settings.publicAccounts.remove(at: index)
+                }
             // remove public acocunt
             case let .wallet(wallet):
                 // remove wallet

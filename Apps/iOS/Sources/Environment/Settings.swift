@@ -6,12 +6,12 @@ import SwiftUI
 @Observable class Settings {
     var presented: Presented?
 
-    var publicAccounts: [PublicAccount] {
+    var watch: [Watch] {
         get {
             guard let data = UserDefaults.standard.data(forKey: "org.partylabs.public.accounts") else {
                 return []
             }
-            return (try? JSONDecoder().decode([PublicAccount].self, from: data)) ?? []
+            return (try? JSONDecoder().decode([Watch].self, from: data)) ?? []
         }
         set {
             if let encoded = try? JSONEncoder().encode(newValue) {

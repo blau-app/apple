@@ -11,7 +11,7 @@ struct Account: Identifiable {
     var filter: AccountTypeFilter {
         switch type {
         case .wallet: return .private
-        case .publicAccount: return .public
+        case .watch: return .watch
         }
     }
 
@@ -19,8 +19,8 @@ struct Account: Identifiable {
         switch type {
         case let .wallet(wallet):
             return wallet.name ?? "Unnamed Wallet"
-        case let .publicAccount(publicAccount):
-            return publicAccount.name
+        case let .watch(watch):
+            return watch.name
         }
     }
 
@@ -28,8 +28,8 @@ struct Account: Identifiable {
         switch type {
         case let .wallet(wallet):
             return wallet.address
-        case let .publicAccount(publicAccount):
-            return publicAccount.address
+        case let .watch(watch):
+            return watch.address
         }
     }
 
@@ -38,9 +38,9 @@ struct Account: Identifiable {
         type = .wallet(wallet)
     }
 
-    init(id: String, publicAccount: PublicAccount) {
+    init(id: String, watch: Watch) {
         self.id = id
-        type = .publicAccount(publicAccount)
+        type = .watch(watch)
     }
 
     func getWallet() -> Wallet? {
@@ -50,9 +50,9 @@ struct Account: Identifiable {
         return nil
     }
 
-    func getPublicAccount() -> PublicAccount? {
-        if case let .publicAccount(publicAccount) = type {
-            return publicAccount
+    func getWatch() -> Watch? {
+        if case let .watch(watch) = type {
+            return watch
         }
         return nil
     }

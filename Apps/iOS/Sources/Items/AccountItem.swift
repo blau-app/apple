@@ -21,8 +21,8 @@ struct AccountItem: View {
                 switch account.type {
                 case let .wallet(wallet):
                     WalletAccount(wallet: wallet)
-                case let .publicAccount(publicAccount):
-                    PublicAccount(publicAccount: publicAccount)
+                case let .watch(watch):
+                    WatchAccount(watch: watch)
                 }
             }
         }
@@ -45,13 +45,13 @@ struct AccountItem: View {
     }
 
     @ViewBuilder
-    func PublicAccount(publicAccount: PublicAccount) -> some View {
-        avatarBeam.createAvatarView(name: publicAccount.address, size: 40)
+    func WatchAccount(watch: Watch) -> some View {
+        avatarBeam.createAvatarView(name: watch.address, size: 40)
         VStack(alignment: .leading) {
-            Text(publicAccount.address.shortAddress())
+            Text(watch.address.shortAddress())
                 .font(.headline)
                 .monospaced()
-            Text(publicAccount.name)
+            Text(watch.name)
                 .font(.system(.subheadline, design: .rounded))
         }
         .privacySensitive()
@@ -65,7 +65,7 @@ struct AccountItem: View {
                                                              address: "0x505a777687665e6acf348fa9eb6a48653ae61ed9",
                                                              publicKey: "0x040267bd29a6c98bbf349adfb536ad5893762ab71b60d09165b9b155d6d7420f0cd0003ae61da924936b7dbd63f627ab4bd3e0cf864a1870d4dc73cd5200247639")))
 
-        AccountItem(account: Account(id: "2", publicAccount: PublicAccount(name: "vitalik.eth",
-                                                                           address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")))
+        AccountItem(account: Account(id: "2", watch: Watch(name: "vitalik.eth",
+                                                           address: "0xd8da6bf26964af9d7eed9e03e53415d37aa96045")))
     }
 }

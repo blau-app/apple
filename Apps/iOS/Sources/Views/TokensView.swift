@@ -46,7 +46,7 @@ struct TokensView: View {
         }, content: { presented in
             switch presented {
             case .accounts: AccountsView()
-            case .addAccount: AddPublicAccountView()
+            case .addAccount: AddWatchAccountView()
             }
         })
     }

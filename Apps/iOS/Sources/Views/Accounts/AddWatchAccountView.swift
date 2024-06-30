@@ -1,10 +1,10 @@
-// AddPublicAccountView.swift
+// AddWatchAccountView.swift
 // Copyright (c) 2024 Party Labs, Inc
 
 import SwiftData
 import SwiftUI
 
-struct AddPublicAccountView: View {
+struct AddWatchAccountView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.settings) private var settings
     @State var isSaveDisabled = true
@@ -66,8 +66,8 @@ struct AddPublicAccountView: View {
             .toolbar {
                 ToolbarItem {
                     Button("Save") {
-                        settings.publicAccounts.append(PublicAccount(name: name,
-                                                                     address: publicKey.noSpace))
+                        settings.watch.append(Watch(name: name,
+                                                    address: publicKey.noSpace))
                         dismiss()
                     }
 //                    .disabled(!(!name.isEmpty && publicKey.noSpace.isPublicKeyValid()))
@@ -84,6 +84,6 @@ struct AddPublicAccountView: View {
 
 #if DEBUG
     #Preview {
-        AddPublicAccountView()
+        AddWatchAccountView()
     }
 #endif

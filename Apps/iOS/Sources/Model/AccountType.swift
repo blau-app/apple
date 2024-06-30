@@ -6,5 +6,5 @@ import SwiftUI
 
 enum AccountType {
     case wallet(Wallet)
-    case publicAccount(PublicAccount)
+    case watch(Watch)
 }

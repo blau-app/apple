@@ -49,8 +49,8 @@ struct AccountsView: View {
                 try await capsuleManager.fetchWallets().forEach { wallet in
                     accounts.append(Account(id: wallet.id, wallet: wallet))
                 }
-                for publicAccount in settings.publicAccounts {
-                    accounts.append(Account(id: publicAccount.address, publicAccount: publicAccount))
+                for watch in settings.watch {
+                    accounts.append(Account(id: watch.address, watch: watch))
                 }
                 loading = false
             } catch {
@@ -107,12 +107,12 @@ struct AccountsView: View {
     private func delete(at offsets: IndexSet) {
         for offset in offsets {
             switch accounts[offset].type {
-            case let .publicAccount(publicAccount):
-                if let index = settings.publicAccounts.firstIndex(where: { $0.address == publicAccount.address }) {
-                    settings.publicAccounts.remove(at: index)
+            case let .watch(watch):
+                if let index = settings.watch.firstIndex(where: { $0.address == watch.address }) {
+                    settings.watch.remove(at: index)
                 }
             // remove public acocunt
-            case let .wallet(wallet):
+            case .wallet:
                 // remove wallet
                 print("remove wallet")
             }

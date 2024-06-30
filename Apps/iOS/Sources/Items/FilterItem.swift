@@ -18,6 +18,9 @@ struct FilterItem<T: Filterable>: View {
                 FilterButton(by: filterCase)
             }
         }
+        .padding(.horizontal, SECTION_HEADER_PADDING)
+        .padding(.bottom, 12)
+        .padding(.top, -12)
     }
 
     func FilterButton(by: T) -> some View {

@@ -27,7 +27,7 @@ struct TokensView: View {
                             }
                             Divider()
                             Button {
-                                accounts()
+                                settings.presented = .accounts
                             } label: {
                                 Label("Accounts", systemImage: "person.text.rectangle")
                             }
@@ -41,14 +41,12 @@ struct TokensView: View {
                     }
                 }
         }
+        .task {
+            await loadTokensView()
+        }
         .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {
-                do {
-                    let wallets = try await capsuleManager.fetchWallets()
-                    tokenBundles = api.getTokenBundles(addresses: wallets.compactMap { $0.address })
-                } catch {
-                    print("LOAD WALLETS \(error)")
-                }
+                await loadTokensView()
             }
         }, content: { presented in
             switch presented {
@@ -84,15 +82,23 @@ struct TokensView: View {
     @ViewBuilder
     private func TokenBundlesContent() -> some View {
         List {
-            Section {} header: {
+            Section {
+                ForEach(tokenBundles) { _ in
+                    TokenB
+                }
+            } header: {
                 FilterItem(filter: $tokenTypeFilter)
-                    .padding(.horizontal, SECTION_HEADER_PADDING)
             }
         }
     }
 
-    private func accounts() {
-        settings.presented = .accounts
+    private func loadTokensView() async {
+        do {
+            let wallets = try await capsuleManager.fetchWallets()
+            tokenBundles = try await api.getTokenBundles(addresses: wallets.compactMap { $0.address })
+        } catch {
+            print("LOAD WALLETS \(error)")
+        }
     }
 }
 

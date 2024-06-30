@@ -94,9 +94,6 @@ struct AccountsView: View {
                     }.onDelete(perform: delete)
                 } header: {
                     FilterItem(filter: $accountFilterType)
-                        .padding(.horizontal, SECTION_HEADER_PADDING)
-                        .padding(.bottom, 12)
-                        .padding(.top, -12)
                 }
             }
         }

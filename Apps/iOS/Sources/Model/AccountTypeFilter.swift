@@ -5,23 +5,23 @@ import SwiftUI
 
 enum AccountTypeFilter: Filterable {
     var id: Self { self }
-    case allKeys
-    case privateKeys
-    case publicKeys
+    case all
+    case `private`
+    case `public`
 
     var label: Label<Text, Image> {
         switch self {
-        case .allKeys: Label("All", systemImage: "key")
-        case .privateKeys: Label("Private", systemImage: "lock")
-        case .publicKeys: Label("Public", systemImage: "lock.open")
+        case .all: Label("All", systemImage: "key")
+        case .private: Label("Private", systemImage: "lock")
+        case .public: Label("Public", systemImage: "lock.open")
         }
     }
 
     var color: Color {
         switch self {
-        case .allKeys: .blue
-        case .privateKeys: .pink
-        case .publicKeys: .green
+        case .all: .blue
+        case .private: .pink
+        case .public: .green
         }
     }
 }

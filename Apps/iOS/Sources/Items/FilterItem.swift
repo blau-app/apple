@@ -29,13 +29,13 @@ struct FilterItem<T: Filterable>: View {
             switch filter == by {
             case true:
                 by.label
-                    .font(.headline)
+                    .font(.system(.headline, design: .rounded))
                     .frame(height: FILTER_HEIGHT)
                     .labelStyle(.titleAndIcon)
                     .frame(maxWidth: .infinity)
             case false:
                 by.label
-                    .font(.headline)
+                    .font(.system(.headline, design: .rounded))
                     .frame(height: FILTER_HEIGHT)
                     .labelStyle(.iconOnly)
                     .padding([.horizontal], -6)
@@ -49,7 +49,7 @@ struct FilterItem<T: Filterable>: View {
 }
 
 #Preview {
-    @State var accountTypes: AccountTypeFilter = .allKeys
+    @State var accountTypes: AccountTypeFilter = .all
     @State var tokenTypes: TokenTypeFilter = .allTokens
     return VStack {
         FilterItem(filter: $accountTypes)

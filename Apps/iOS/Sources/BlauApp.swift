@@ -32,5 +32,14 @@ struct BlauApp: App {
             }
             .environmentObject(capsuleManager)
         }
+        .onChange(of: scenePhase) { _, newValue in
+            Task {
+                switch newValue {
+                case .active: try await capsuleManager.updateSessionState()
+                case .inactive, .background: return
+                @unknown default: return
+                }
+            }
+        }
     }
 }

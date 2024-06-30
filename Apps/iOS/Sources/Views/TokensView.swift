@@ -83,8 +83,8 @@ struct TokensView: View {
     private func TokenBundlesContent() -> some View {
         List {
             Section {
-                ForEach(tokenBundles) { _ in
-                    TokenB
+                ForEach($tokenBundles) { $tokenBundle in
+                    TokenBundleItem(tokenBundle: $tokenBundle)
                 }
             } header: {
                 FilterItem(filter: $tokenTypeFilter)

@@ -5,6 +5,7 @@ import Foundation
 
 struct Token: Codable, Equatable, Hashable, Identifiable {
     var id: String { address ?? UUID().uuidString }
+    var erc: ERC = .erc20
     var address: String? = nil
     var chainId: Int = 1
     var name: String = "Ethereum"

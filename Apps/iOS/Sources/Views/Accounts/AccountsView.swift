@@ -42,14 +42,9 @@ struct AccountsView: View {
                             Divider()
                             Button(role: .destructive) {
                                 showLogoutAlert = true
+//                                logout()
                             } label: {
                                 Text("Logout")
-                            }
-                            .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
-                                Button("Cancel", role: .cancel) {}
-                                Button("Logout", role: .destructive) {
-                                    logout()
-                                }
                             }
                         }, label: {
                             Image(systemName: "ellipsis")
@@ -58,6 +53,12 @@ struct AccountsView: View {
                 }
                 .toolbar(content: {})
                 .navigationTitle("Accounts")
+        }
+        .alert("Are you sure you want to logout?", isPresented: $showLogoutAlert) {
+            Button("Cancel", role: .cancel) {}
+            Button("Logout", role: .destructive) {
+                logout()
+            }
         }
         .task {
             do {

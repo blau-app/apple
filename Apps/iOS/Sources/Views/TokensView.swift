@@ -67,14 +67,19 @@ struct TokensView: View {
     @ViewBuilder
     private func EmptyContent() -> some View {
         ContentUnavailableView {
-            Label("Claim Free Tokens", image: "hand-coins")
+            Label("Buy ETH", image: "hand-coins")
         } description: {
             Text("We are going to get you started with some free tokens and get you earnings in under 60 seconds.")
         } actions: {
             Button {} label: {
-                Label("Claim Free Tokens", image: "hand-coins")
+                Label("Buy ETH", image: "hand-coins")
                     .fontWeight(.bold)
             }.buttonStyle(.borderedProminent)
+                .controlSize(.large)
+            Button {} label: {
+                Label("Receive ETH", image: "hand-coins")
+                    .fontWeight(.bold)
+            }.buttonStyle(.bordered)
                 .controlSize(.large)
         }
     }

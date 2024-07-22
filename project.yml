@@ -1,4 +1,4 @@
-name: Blau 
+name: Superdapp 
 settings:
   DEVELOPMENT_TEAM: 99JJXS75CQ
   CURRENT_PROJECT_VERSION: 1
@@ -17,7 +17,7 @@ packages:
   capsule-swift-sdk:
     path: ../swift-sdk
 targets:
-  Blau:
+  Superdapp:
     type: application
     platform: iOS
     sources:

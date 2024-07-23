@@ -118,6 +118,6 @@ struct TokenBundleItem: View {
     }
 }
 
-#Preview {
-    TokenBundleItem(tokenBundle: .constant(TokenBundle(tokensIn: [ethereumToken])))
-}
+// #Preview {
+//    TokenBundleItem(tokenBundle: .constant(TokenBundle(tokensIn: [ethereumToken])))
+// }

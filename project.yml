@@ -4,7 +4,7 @@ settings:
   CURRENT_PROJECT_VERSION: 1
   MARKETING_VERSION: 0.0.1
 options:
-  bundleIdPrefix: com.joeblau
+  bundleIdPrefix: com.superdapp
   deploymentTarget:
     iOS: "17.5"
   createIntermediateGroups: true
@@ -16,6 +16,12 @@ packages:
   #   branch: initial-branch
   capsule-swift-sdk:
     path: ../swift-sdk
+  superdapp-service:
+    path: Library/SuperdappService
+  grpc-swift:
+      url: https://github.com/grpc/grpc-swift.git
+      branch: main
+  
 targets:
   Superdapp:
     type: application
@@ -32,15 +38,23 @@ targets:
         buildPhase: resources
     settings:
       DEVELOPMENT_ASSET_PATHS: Apps/iOS/PreviewContent
-      PRODUCT_BUNDLE_IDENTIFIER: org.partylabs.bank 
+      PRODUCT_BUNDLE_IDENTIFIER: com.superdapp.blau
       SUPPORTED_PLATFORMS: [iphoneos, iphonesimulator]
-      CODE_SIGN_ENTITLEMENTS: Apps/iOS/SupportingFiles/Blau.entitlements
+      CODE_SIGN_ENTITLEMENTS: Apps/iOS/SupportingFiles/Superdapp.entitlements
       TARGETED_DEVICE_FAMILY: 1
       SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: false
       SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: false
       INFOPLIST_KEY_UILaunchScreen_Generation: true
       GENERATE_INFOPLIST_FILE: true
       VALIDATE_WORKSPACE: true
+      INFOPLIST_KEY_UISupportedInterfaceOrientations:
+        [
+          "UIInterfaceOrientationPortrait"
+        ]
     dependencies:
       - package: capsule-swift-sdk
         product: CapsuleSwift
+      - package: superdapp-service
+        product: SuperdappService
+      - package: grpc-swift
+        product: GRPC

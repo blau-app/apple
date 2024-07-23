@@ -44,7 +44,7 @@ struct FilterItem<T: Filterable>: View {
                     .padding([.horizontal], -6)
             }
         }
-        .controlSize(.extraLarge)
+//        .controlSize(.extraLarge)
         .buttonStyle(.borderedProminent)
         .foregroundColor(filter == by ? .white : .secondary)
         .tint(filter == by ? by.color : Color(UIColor.tertiarySystemFill))

@@ -20,25 +20,25 @@ struct TokensView: View {
             TokensContent()
                 .navigationTitle("Tokens")
                 .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        Menu(content: {
-                            Button {} label: {
-                                Label("Deposit Tokens", systemImage: "qrcode")
-                            }
-                            Divider()
-                            Button {
-                                settings.presented = .accounts
-                            } label: {
-                                Label("Accounts", systemImage: "person.text.rectangle")
-                            }
-                        }, label: {
-                            switch capsuleManager.wallet?.publicKey {
-                            case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
-                                                                                   size: 32)
-                            case .none: Image(systemName: "exclamationmark.triangle")
-                            }
-                        })
-                    }
+//                    ToolbarItem(placement: .topBarTrailing) {
+//                        Menu(content: {
+//                            Button {} label: {
+//                                Label("Deposit Tokens", systemImage: "qrcode")
+//                            }
+//                            Divider()
+//                            Button {
+//                                settings.presented = .accounts
+//                            } label: {
+//                                Label("Accounts", systemImage: "person.text.rectangle")
+//                            }
+//                        }, label: {
+//                            switch capsuleManager.wallet?.publicKey {
+//                            case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
+//                                                                                   size: 32)
+//                            case .none: Image(systemName: "exclamationmark.triangle")
+//                            }
+//                        })
+//                    }
                 }
         }
         .task {
@@ -67,17 +67,17 @@ struct TokensView: View {
     @ViewBuilder
     private func EmptyContent() -> some View {
         ContentUnavailableView {
-            Label("Buy ETH", image: "hand-coins")
+            Label("Get Started", image: "hand-coins")
         } description: {
-            Text("We are going to get you started with some free tokens and get you earnings in under 60 seconds.")
+            Text("We are going to get you started in under a minute.")
         } actions: {
             Button {} label: {
-                Label("Buy ETH", image: "hand-coins")
+                Label("Buy with Stripe", systemImage: "dollarsign")
                     .fontWeight(.bold)
             }.buttonStyle(.borderedProminent)
                 .controlSize(.large)
             Button {} label: {
-                Label("Receive ETH", image: "hand-coins")
+                Label("Receive", systemImage: "qrcode")
                     .fontWeight(.bold)
             }.buttonStyle(.bordered)
                 .controlSize(.large)

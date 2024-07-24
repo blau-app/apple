@@ -8,14 +8,14 @@ import SwiftUI
 
     var watch: [Watch] {
         get {
-            guard let data = UserDefaults.standard.data(forKey: "org.partylabs.public.accounts") else {
+            guard let data = UserDefaults.standard.data(forKey: "com.superdapp.public.accounts") else {
                 return []
             }
             return (try? JSONDecoder().decode([Watch].self, from: data)) ?? []
         }
         set {
             if let encoded = try? JSONEncoder().encode(newValue) {
-                UserDefaults.standard.set(encoded, forKey: "org.partylabs.public.accounts")
+                UserDefaults.standard.set(encoded, forKey: "com.superdapp.public.accounts")
             }
         }
     }

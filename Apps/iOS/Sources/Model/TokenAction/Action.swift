@@ -17,8 +17,8 @@ enum Action: Identifiable, CaseIterable, Codable, CustomStringConvertible {
     case addLiquidity
     case removeLiquidity
     case mine
-    case stake
-    case loan
+    case depositStake
+    case depositLoan
     case liquidate
     case borrow
     case addCollateral
@@ -41,9 +41,9 @@ enum Action: Identifiable, CaseIterable, Codable, CustomStringConvertible {
         case .swap: "Swap"
         case .addLiquidity: "Add Liquidity"
         case .removeLiquidity: "Remove Liquidity"
-        case .stake: "Stake"
+        case .depositStake: "Stake"
         case .mine: "Mine"
-        case .loan: "Loan"
+        case .depositLoan: "Loan"
         case .liquidate: "Liquidate"
         case .borrow: "Borrow"
         case .addCollateral: "Add Collateral"
@@ -68,9 +68,9 @@ enum Action: Identifiable, CaseIterable, Codable, CustomStringConvertible {
         case .swap: "arrow.left.arrow.right"
         case .addLiquidity: "plus"
         case .removeLiquidity: "minus"
-        case .stake: "lock.badge.clock"
+        case .depositStake: "lock.badge.clock"
         case .mine: "pickaxe"
-        case .loan: "piggy-bank"
+        case .depositLoan: "piggy-bank"
         case .liquidate: "atom"
         case .borrow: "hand-coins"
         case .addCollateral: "plus"
@@ -92,7 +92,7 @@ enum Action: Identifiable, CaseIterable, Codable, CustomStringConvertible {
     @ViewBuilder
     var label: some View {
         switch self {
-        case .mine, .borrow, .loan, .vote, .farm:
+        case .mine, .borrow, .depositLoan, .vote, .farm:
             Label(description, image: systemImage)
         default:
             Label(description, systemImage: systemImage)

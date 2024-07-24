@@ -15,9 +15,9 @@ import Foundation
 let TOKEN_BUNDLES: [TokenBundle] = [
     TokenBundle(tokensIn: [ethereumToken], tokensOut: [usdlToken], actions: [.borrow, .repay]),
 
-    TokenBundle(tokensIn: [fenixToken], tokensOut: [fenixYieldToken], actions: [.stake, .end]),
+    TokenBundle(tokensIn: [fenixToken], tokensOut: [fenixYieldToken], actions: [.depositStake, .end]),
 
-    TokenBundle(tokensIn: [dxnToken], tokensOut: [dxnYieldToken, ethereumYieldToken], actions: [.stake, .collect, .end]),
+    TokenBundle(tokensIn: [dxnToken], tokensOut: [dxnYieldToken, ethereumYieldToken], actions: [.depositStake, .collect, .end]),
 
     TokenBundle(tokensIn: [shibToken, ethereumToken], actions: [.farm, .addLiquidity, .removeLiquidity]),
 
@@ -48,50 +48,50 @@ let TOKEN_BUNDLES: [TokenBundle] = [
 let ethereumToken = Token(address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
                           name: "Ethereum",
                           symbol: "ETH",
-                          actions: [.send, .swap, .stake, .burn, .loan, .borrow],
+                          actions: [.send, .swap, .depositStake, .burn, .depositLoan, .borrow],
                           balance: Balance(value: 3.08, fiat: 11558.52))
 
 let ethereumYieldToken = Token(address: "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
                                name: "Ethereum",
                                symbol: "ETH",
-                               actions: [.send, .swap, .stake, .burn, .loan, .borrow],
+                               actions: [.send, .swap, .depositStake, .burn, .depositLoan, .borrow],
                                balance: Balance(value: 0.23, fiat: 875.88))
 
 let xenToken = Token(address: "0x06450dEe7FD2Fb8E39061434BAbCFC05599a6Fb8",
                      name: "XEN",
                      symbol: "XEN",
-                     actions: [.send, .swap, .mine, .stake, .burn, .loan, .borrow],
+                     actions: [.send, .swap, .mine, .depositStake, .burn, .depositLoan, .borrow],
                      balance: Balance(value: 26_824_534_982.94, fiat: 5144.94))
 
 let degenToken = Token(address: "0xEb54dACB4C2ccb64F8074eceEa33b5eBb38E5387",
                        chainId: 8453,
                        name: "DEGEN",
                        symbol: "DEGEN",
-                       actions: [.send, .swap, .loan, .borrow],
+                       actions: [.send, .swap, .depositLoan, .borrow],
                        balance: Balance(value: 266_703.94, fiat: 4107.24))
 
 let liquityToken = Token(address: "0x6DEA81C8171D0bA574754EF6F8b412F2Ed88c54D",
                          name: "Liquity",
                          symbol: "LQTY",
-                         actions: [.send, .swap, .loan, .borrow],
+                         actions: [.send, .swap, .depositLoan, .borrow],
                          balance: Balance(value: 1242, fiat: 1401.54))
 
 let usdlToken = Token(address: "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0",
                       name: "LUSD Stablecoin",
                       symbol: "LUSD",
-                      actions: [.send, .swap, .loan, .borrow],
+                      actions: [.send, .swap, .depositLoan, .borrow],
                       balance: Balance(value: 4421.54, fiat: 4421.54))
 
 let daiToken = Token(address: "0x6B175474E89094C44Da98b954EedeAC495271d0F",
                      name: "DaiStablecoin",
                      symbol: "DAI",
-                     actions: [.send, .swap, .loan, .borrow],
+                     actions: [.send, .swap, .depositLoan, .borrow],
                      balance: Balance(value: 649.12, fiat: 649.12))
 
 let compoundToken = Token(address: "0xc00e94Cb662C3520282E6f5717214004A7f26888",
                           name: "Compound",
                           symbol: "COMP",
-                          actions: [.send, .swap, .loan, .borrow],
+                          actions: [.send, .swap, .depositLoan, .borrow],
                           balance: Balance(value: 42, fiat: 2482.04))
 
 let apeToken = Token(address: "0x4d224452801ACEd8B2F0aebE155379bb5D594381",
@@ -127,7 +127,7 @@ let fenixYieldToken = Token(address: "0xC3e8abfA04B0EC442c2A4D65699a40F7FcEd8055
 let usdcToken = Token(address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
                       name: "USDC",
                       symbol: "USDC",
-                      actions: [.send, .swap, .loan, .borrow, .stake],
+                      actions: [.send, .swap, .depositLoan, .borrow, .depositStake],
                       balance: Balance(value: 280.64, fiat: 280.73))
 
 let dxnToken = Token(address: "0x80f0C1c49891dcFDD40b6e0F960F84E6042bcB6F",
@@ -145,27 +145,27 @@ let dxnYieldToken = Token(address: "0x80f0C1c49891dcFDD40b6e0F960F84E6042bcB6F",
 let usdtToken = Token(address: "0xdAC17F958D2ee523a2206206994597C13D831ec7",
                       name: "Tether USD",
                       symbol: "USDT",
-                      actions: [.send, .swap, .loan, .borrow, .stake],
+                      actions: [.send, .swap, .depositLoan, .borrow, .depositStake],
                       balance: Balance(value: 280.64, fiat: 280.73))
 
 let aerodromeToken = Token(address: "0x940181a94A35A4569E4529A3CDfB74e38FD98631",
                            name: "Aerodrome",
                            symbol: "AERO",
-                           actions: [.send, .swap, .loan, .borrow, .stake],
+                           actions: [.send, .swap, .depositLoan, .borrow, .depositStake],
                            balance: Balance(value: 280.64, fiat: 280.73))
 
 let boredApeToken = Token(erc: .erc721,
                           address: "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
                           name: "BoredApeYachtClub",
                           symbol: "BAYC",
-                          actions: [.send, .swap, .loan, .borrow, .stake, .vote],
+                          actions: [.send, .swap, .depositLoan, .borrow, .depositStake, .vote],
                           balance: Balance(value: 1, fiat: 69420.00))
 
 let mutantApeToken = Token(erc: .erc721,
                            address: "0x60E4d786628Fea6478F785A6d7e704777c86a7c6",
                            name: "MutantApeYachtClub",
                            symbol: "MAYC",
-                           actions: [.send, .swap, .loan, .borrow, .stake, .vote],
+                           actions: [.send, .swap, .depositLoan, .borrow, .depositStake, .vote],
                            balance: Balance(value: 1, fiat: 6942.00))
 
 let purpleToken = Token(erc: .erc721,

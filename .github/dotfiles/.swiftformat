@@ -12,7 +12,7 @@
 --exponentcase lowercase
 --exponentgrouping disabled
 --fractiongrouping disabled
---header "{file}\nCopyright (c) {year} Party Labs, Inc"
+--header "{file}\nCopyright (c) {year} Superdapp, Inc"
 --hexgrouping 4,8
 --hexliteralcase uppercase
 --ifdef indent

@@ -1,5 +1,5 @@
 // superdapp.grpc.swift
-// Copyright (c) 2024 Party Labs, Inc
+// Copyright (c) 2024 Superdapp, Inc
 
 //
 // DO NOT EDIT.

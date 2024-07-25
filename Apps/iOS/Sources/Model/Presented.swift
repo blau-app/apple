@@ -4,14 +4,16 @@
 import Foundation
 
 enum Presented: Identifiable {
-    case onramp
+    case stripe
+    case receive
     case accounts
     case addAccount
     case tokenAction(Action)
 
     var id: String {
         switch self {
-        case .onramp: "onramp"
+        case .stripe: "stripe"
+        case .receive: "receive"
         case .accounts: "accounts"
         case .addAccount: "addAccount"
         case let .tokenAction(action): "tokenAction_\(action.id)"

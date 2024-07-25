@@ -20,25 +20,25 @@ struct TokensView: View {
             TokensContent()
                 .navigationTitle("Tokens")
                 .toolbar {
-//                    ToolbarItem(placement: .topBarTrailing) {
-//                        Menu(content: {
-//                            Button {} label: {
-//                                Label("Deposit Tokens", systemImage: "qrcode")
-//                            }
-//                            Divider()
-//                            Button {
-//                                settings.presented = .accounts
-//                            } label: {
-//                                Label("Accounts", systemImage: "person.text.rectangle")
-//                            }
-//                        }, label: {
-//                            switch capsuleManager.wallet?.publicKey {
-//                            case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
-//                                                                                   size: 32)
-//                            case .none: Image(systemName: "exclamationmark.triangle")
-//                            }
-//                        })
-//                    }
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Menu(content: {
+                            Button {} label: {
+                                Label("Deposit Tokens", systemImage: "qrcode")
+                            }
+                            Divider()
+                            Button {
+                                settings.presented = .accounts
+                            } label: {
+                                Label("Accounts", systemImage: "person.text.rectangle")
+                            }
+                        }, label: {
+                            switch capsuleManager.wallet?.publicKey {
+                            case let .some(publicKey): avatarBeam.createAvatarView(name: publicKey,
+                                                                                   size: 32)
+                            case .none: Image(systemName: "exclamationmark.triangle")
+                            }
+                        })
+                    }
                 }
         }
         .task {
@@ -52,7 +52,8 @@ struct TokensView: View {
             switch presented {
             case .accounts: AccountsView()
             case .addAccount: AddWatchAccountView()
-            case .onramp: OnrampView()
+            case .stripe: StripeOnramp()
+            case .receive: ReceiveOnramp()
             case let .tokenAction(action):
                 switch action {
                 case .depositLoan: DepositLoanView()
@@ -79,12 +80,16 @@ struct TokensView: View {
         } description: {
             Text("We are going to get you started in under a minute.")
         } actions: {
-            Button {} label: {
+            Button {
+                settings.presented = .stripe
+            } label: {
                 Label("Buy with Stripe", systemImage: "dollarsign")
                     .fontWeight(.bold)
             }.buttonStyle(.borderedProminent)
                 .controlSize(.large)
-            Button {} label: {
+            Button {
+                settings.presented = .receive
+            } label: {
                 Label("Receive", systemImage: "qrcode")
                     .fontWeight(.bold)
             }.buttonStyle(.bordered)
@@ -102,6 +107,21 @@ struct TokensView: View {
             } header: {
                 FilterItem(filter: $tokenTypeFilter)
             }
+        }
+    }
+
+    @ViewBuilder
+    private func StripeOnramp() -> some View {
+        switch capsuleManager.wallet?.address {
+        case let .some(address): StripeView(address: address)
+        case .none: EmptyView()
+        }
+    }
+
+    @ViewBuilder func ReceiveOnramp() -> some View {
+        switch capsuleManager.wallet {
+        case let .some(wallet): ReceiveView(wallet: wallet)
+        case .none: EmptyView()
         }
     }
 

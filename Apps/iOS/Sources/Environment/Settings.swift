@@ -19,6 +19,12 @@ import SwiftUI
             }
         }
     }
+
+    var onboardComplete: Bool = UserDefaults.standard.bool(forKey: "com.superdapp.onboard.complete") {
+        didSet {
+            UserDefaults.standard.setValue(onboardComplete, forKey: "com.superdapp.onboard.complete")
+        }
+    }
 }
 
 struct SettingsKey: EnvironmentKey {

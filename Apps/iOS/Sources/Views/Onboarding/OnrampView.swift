@@ -1,15 +1,15 @@
-// OnboardView.swift
+// OnrampView.swift
 // Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI
 
 struct OnrampView: View {
     @State var steps = [0, 1, 2, 3]
-    @State var currentStep = 0
+    @State var currentStep = 1
     var totalSteps: Int {
         steps.count - 1
     }
-    
+
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
@@ -20,34 +20,39 @@ struct OnrampView: View {
                         .navigationTitle("Deposit")
                 case 1:
                     StepHeader("Now that you have crypto, let's stake to start earning rewards.")
-                    OnboardStakeView()
+                    OnrampStakeView()
                         .navigationTitle("Stake")
                 case 2:
                     StepHeader("We can also lend tokens to earn rewards when other people borrow your tokens.")
-                    OnboardLendView()
+                    OnrampLendView()
                         .navigationTitle("Lend")
                 default:
                     StepHeader("Welcome to earning in crypto!")
-                    OnboardSuccessView()
-                    .navigationTitle("Success")
+                    OnrampSuccessView()
+                        .navigationTitle("Success")
                 }
-                VStack {
-                    Progress()
-                    Buttons()
+                switch currentStep {
+                case 1...:
+                    VStack {
+                        Progress()
+                        Buttons()
+                    }
+                    .padding([.horizontal])
+                default:
+                    EmptyView()
                 }
-                .padding([.horizontal])
             }
             .background(Color(uiColor: UIColor.systemGroupedBackground))
         }
     }
-    
+
     func StepHeader(_ text: String) -> some View {
         Text(text)
             .font(.system(.headline, design: .rounded))
             .foregroundStyle(.secondary)
             .padding([.horizontal])
     }
-    
+
     func Progress() -> some View {
         ZStack(alignment: .leading) {
             Capsule(style: .continuous)
@@ -64,7 +69,7 @@ struct OnrampView: View {
             .padding([.horizontal], 12)
         }
     }
-    
+
     func Buttons() -> some View {
         HStack {
             if currentStep > 0 {

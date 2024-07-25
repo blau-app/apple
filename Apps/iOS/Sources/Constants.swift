@@ -9,5 +9,10 @@ func BEAM_AVATAR(address: String) -> String {
     "https://avatar.blau.app/beam?name=\(address)"
 }
 
+func ONRAMP_STRIPE(address: String) -> String {
+    "https://onramp.superdapp.com/stripe/\(address)"
+}
+
 let SECTION_HEADER_PADDING: CGFloat = -20
 let FILTER_HEIGHT: CGFloat = 20
+let LIST_SECTION_SPACING: CGFloat = 12

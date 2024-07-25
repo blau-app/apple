@@ -1,4 +1,4 @@
-// OnboardLendView.swift
+// OnrampLendView.swift
 // Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI

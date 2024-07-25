@@ -1,11 +1,11 @@
-// OnboardStakeView.swift
+// OnrampStakeView.swift
 // Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI
 
 struct OnrampStakeView: View {
     @Environment(\.settings) var settings
-    
+
     @State var tokenBundle = TokenBundle(tokensIn: [Token()],
                                          actions: [.depositStake])
 

@@ -52,6 +52,14 @@ struct TokensView: View {
             switch presented {
             case .accounts: AccountsView()
             case .addAccount: AddWatchAccountView()
+            case .onramp: OnrampView()
+            case let .tokenAction(action):
+                switch action {
+                case .depositLoan: DepositLoanView()
+                case .depositStake: DepositStakeView()
+                default:
+                    EmptyView()
+                }
             }
         })
     }

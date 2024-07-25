@@ -1,9 +1,5 @@
-//
-//  OnboardSuccessView.swift
-//  Superdapp
-//
-//  Created by Joe Blau on 7/24/24.
-//
+// OnrampSuccessView.swift
+// Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI
 
@@ -18,11 +14,9 @@ struct OnrampSuccessView: View {
                     tokensOut: [Token()],
                     actions: []),
         TokenBundle(tokensIn: [Token()],
-                    actions: [])
-        
-        ]
-    
-    
+                    actions: []),
+    ]
+
     var body: some View {
         List {
             ForEach($tokenBundles) { $tokenBundle in

@@ -1,46 +1,10 @@
 // API.swift
 // Copyright (c) 2024 Superdapp, Inc
 
-import GRPC
-import NIOPosix
 import SwiftUI
 
 @Observable class API {
-    private let client: Superdapp_PitBossAsyncClient
-
-    init() {
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        defer {
-            try? group.syncShutdownGracefully()
-        }
-
-        do {
-            let channel = try GRPCChannelPool.with(
-                target: .host("localhost", port: 17001),
-                transportSecurity: .tls(.makeClientConfigurationBackedByNIOSSL()),
-                eventLoopGroup: group
-            )
-
-            defer {
-                try? channel.close().wait()
-            }
-
-            client = Superdapp_PitBossAsyncClient(channel: channel)
-        } catch {
-            fatalError("can not setup api client")
-        }
-    }
-
     func getTokenBundles(addresses: [String]) async throws -> [TokenBundle] {
-        let request = Superdapp_GetTokenBundlesRequest.with {
-            $0.evmPublicKeys = addresses
-        }
-
-        let responseStream = client.getTokenBundles(request)
-
-        for try await response in responseStream {
-            print(response.tokenBundles.count)
-        }
 //        let bundles = superdapp.
 //
 //        bundles.map { bundle in

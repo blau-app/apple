@@ -16,9 +16,6 @@ packages:
   #   branch: initial-branch
   capsule-swift-sdk:
     path: ../swift-sdk
-  grpc-swift:
-    url: https://github.com/grpc/grpc-swift.git
-    branch: main
   
 targets:
   Superdapp:
@@ -52,5 +49,3 @@ targets:
     dependencies:
       - package: capsule-swift-sdk
         product: CapsuleSwift
-      - package: grpc-swift
-        product: GRPC

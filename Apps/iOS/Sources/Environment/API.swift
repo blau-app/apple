@@ -4,7 +4,7 @@
 import SwiftUI
 
 @Observable class API {
-    func getTokenBundles(addresses: [String]) async throws -> [TokenBundle] {
+    func getTokenBundles(addresses _: [String]) async throws -> [TokenBundle] {
 //        let bundles = superdapp.
 //
 //        bundles.map { bundle in
@@ -29,7 +29,7 @@ import SwiftUI
 //        return balanceResponses.map { balanceResponse in
 //            TokenBundle(tokensIn: [balanceResponse.toToken], actions: [.loan, .stake, .addLiquidity])
 //        }
-        return []
+        []
     }
 }
 

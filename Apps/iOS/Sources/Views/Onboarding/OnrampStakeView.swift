@@ -1,19 +1,21 @@
-// OnboardLendView.swift
+// OnboardStakeView.swift
 // Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI
 
-struct OnboardLendView: View {
-    @Environment(\.system) var system
+struct OnrampStakeView: View {
+    @Environment(\.settings) var settings
+    
     @State var tokenBundle = TokenBundle(tokensIn: [Token()],
-                                         actions: [.depositLoan])
+                                         actions: [.depositStake])
+
     var body: some View {
         List {
             TokenBundleItem(tokenBundle: $tokenBundle)
                 .contextMenu(menuItems: {
                     ForEach(tokenBundle.actions) { action in
                         Button(action: {
-                            system.presentedAction = action
+                            settings.presented = .tokenAction(action)
                         }, label: {
                             action.label
                         })
@@ -24,5 +26,5 @@ struct OnboardLendView: View {
 }
 
 #Preview {
-    OnboardLendView()
+    OnrampStakeView()
 }

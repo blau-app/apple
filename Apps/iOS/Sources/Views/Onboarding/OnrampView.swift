@@ -3,57 +3,51 @@
 
 import SwiftUI
 
-struct OnboardView: View {
+struct OnrampView: View {
     @State var steps = [0, 1, 2, 3]
     @State var currentStep = 0
     var totalSteps: Int {
         steps.count - 1
     }
-
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 switch currentStep {
                 case 0:
-                    Group {
-                        Label("First we need to deposit money in your wallet.",
-                              systemImage: "1.circle")
-                        WebViewItem(urlString: "https://onramp.superdapp.com")
-                    }
-                    .navigationTitle("Deposit")
+                    StepHeader("We are going to use Stripe to deposit money into your crypto wallet.")
+                    WebViewItem(urlString: ONRAMP_STRIPE(address: "0xa53417F20BB7148a50849770471De251417C3F12"))
+                        .navigationTitle("Deposit")
                 case 1:
-                    Group {
-                        Label("Now that you have crypto, let's stake to start earning rewards.",
-                              systemImage: "2.circle")
-                            .padding([.horizontal])
-
-                        OnboardStakeView()
-                    }
-                    .navigationTitle("Stake")
+                    StepHeader("Now that you have crypto, let's stake to start earning rewards.")
+                    OnboardStakeView()
+                        .navigationTitle("Stake")
                 case 2:
-                    Group {
-                        Label("We can also lend tokens to earn rewards when other people borrow.",
-                              systemImage: "2.circle")
-                        OnboardLendView()
-                    }
-                    .navigationTitle("Lend")
+                    StepHeader("We can also lend tokens to earn rewards when other people borrow your tokens.")
+                    OnboardLendView()
+                        .navigationTitle("Lend")
                 default:
-                    VStack {
-                        Text("Success, you're earning in crypto!")
-                        Text("Let's check out your tokens")
-                    }
-                    EmptyView()
+                    StepHeader("Welcome to earning in crypto!")
+                    OnboardSuccessView()
+                    .navigationTitle("Success")
                 }
                 VStack {
                     Progress()
                     Buttons()
                 }
-                .padding()
+                .padding([.horizontal])
             }
             .background(Color(uiColor: UIColor.systemGroupedBackground))
         }
     }
-
+    
+    func StepHeader(_ text: String) -> some View {
+        Text(text)
+            .font(.system(.headline, design: .rounded))
+            .foregroundStyle(.secondary)
+            .padding([.horizontal])
+    }
+    
     func Progress() -> some View {
         ZStack(alignment: .leading) {
             Capsule(style: .continuous)
@@ -70,7 +64,7 @@ struct OnboardView: View {
             .padding([.horizontal], 12)
         }
     }
-
+    
     func Buttons() -> some View {
         HStack {
             if currentStep > 0 {
@@ -107,5 +101,5 @@ struct OnboardView: View {
 }
 
 #Preview {
-    OnboardView()
+    OnrampView()
 }

@@ -16,3 +16,7 @@ fi
 if [[ -f "swiftgen.yml" ]]; then
     swiftgen
 fi
+
+if [[ -d "Library/API" ]]; then
+    openapi-generator generate -i https://pitboss.api.blau.app/v1 -g swift5 -o ./Library/API
+fi

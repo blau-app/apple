@@ -1,6 +1,7 @@
 // API.swift
 // Copyright (c) 2024 Superdapp, Inc
 
+import OpenAPIClient
 import SwiftUI
 
 @Observable class API {

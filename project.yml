@@ -16,6 +16,8 @@ packages:
   #   branch: initial-branch
   capsule-swift-sdk:
     path: ../swift-sdk
+  OpenAPIClient:
+    path: Library/API
   
 targets:
   Superdapp:
@@ -49,3 +51,5 @@ targets:
     dependencies:
       - package: capsule-swift-sdk
         product: CapsuleSwift
+      - package: OpenAPIClient
+        product: OpenAPIClient

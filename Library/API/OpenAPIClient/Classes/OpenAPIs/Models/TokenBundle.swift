@@ -40,12 +40,12 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
     }
     public var id: String
     public var title: String?
-    public var _in: [TokenBundleInInner]
-    public var out: [TokenBundleInInner]?
+    public var _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]
+    public var out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]?
     public var actions: [Actions]
-    public var balance: TokenBalance
+    public var balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance
 
-    public init(id: String, title: String? = nil, _in: [TokenBundleInInner], out: [TokenBundleInInner]? = nil, actions: [Actions], balance: TokenBalance) {
+    public init(id: String, title: String? = nil, _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner], out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]? = nil, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
         self.id = id
         self.title = title
         self._in = _in

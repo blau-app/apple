@@ -51,9 +51,9 @@ public struct Token: Codable, JSONEncodable, Hashable {
     public var symbol: String
     public var decimals: Int
     public var actions: [Actions]
-    public var balance: TokenBalance
+    public var balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance
 
-    public init(id: String, erc: Erc, address: String? = nil, chainId: Int, name: String, symbol: String, decimals: Int, actions: [Actions], balance: TokenBalance) {
+    public init(id: String, erc: Erc, address: String? = nil, chainId: Int, name: String, symbol: String, decimals: Int, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
         self.id = id
         self.erc = erc
         self.address = address

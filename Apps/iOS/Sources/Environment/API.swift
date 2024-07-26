@@ -5,7 +5,17 @@ import OpenAPIClient
 import SwiftUI
 
 @Observable class API {
-    func getTokenBundles(addresses _: [String]) async throws -> [TokenBundle] {
+    func getTokenBundles(addresses: [String]) async throws -> [TokenBundle] {
+        //        OpenAPIClientAPI.basePath = "https://bundles.api.blau.app"
+                OpenAPIClientAPI.basePath = "http://localhost:17001"
+
+        let postRequest = V1GetTokenBundlesPostRequest(evmPublicKeys: addresses)
+        let requestBuilder = DefaultAPI.v1GetTokenBundlesPostWithRequestBuilder(v1GetTokenBundlesPostRequest: postRequest)
+        let response = try await requestBuilder.execute()
+        
+//        let result =  request
+        print(response.body)
+//        OpenAPIClientAPI()
 //        let bundles = superdapp.
 //
 //        bundles.map { bundle in
@@ -30,7 +40,7 @@ import SwiftUI
 //        return balanceResponses.map { balanceResponse in
 //            TokenBundle(tokensIn: [balanceResponse.toToken], actions: [.loan, .stake, .addLiquidity])
 //        }
-        []
+        return []
     }
 }
 

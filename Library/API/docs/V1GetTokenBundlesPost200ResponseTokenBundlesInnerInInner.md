@@ -1,12 +1,15 @@
-# TokenBundle
+# V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** |  | 
-**title** | **String** |  | [optional] 
-**_in** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | 
-**out** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | [optional] 
+**erc** | **String** |  | 
+**address** | **String** |  | [optional] 
+**chainId** | **Int** |  | 
+**name** | **String** |  | 
+**symbol** | **String** |  | 
+**decimals** | **Int** |  | 
 **actions** | **[String]** |  | 
 **balance** | [**V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance**](V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance.md) |  | 
 

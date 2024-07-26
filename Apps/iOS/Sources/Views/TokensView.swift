@@ -42,7 +42,9 @@ struct TokensView: View {
                 }
         }
         .task {
-            await loadTokensView()
+            let result = try? await api.getTokenBundles(addresses: ["0xa53417F20BB7148a50849770471De251417C3F12"])
+            print(result)
+//            await loadTokensView()
         }
         .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {

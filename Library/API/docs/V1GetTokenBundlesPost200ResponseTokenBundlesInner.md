@@ -1,4 +1,4 @@
-# TokenBundle
+# V1GetTokenBundlesPost200ResponseTokenBundlesInner
 
 ## Properties
 Name | Type | Description | Notes

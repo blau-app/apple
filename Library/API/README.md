@@ -26,6 +26,7 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+*DefaultAPI* | [**v1GetTokenBundlesPost**](docs/DefaultAPI.md#v1gettokenbundlespost) | **POST** /v1/getTokenBundles | 
 
 
 ## Documentation For Models
@@ -34,9 +35,12 @@ Class | Method | HTTP request | Description
  - [Balance](docs/Balance.md)
  - [ErcType](docs/ErcType.md)
  - [Token](docs/Token.md)
- - [TokenBalance](docs/TokenBalance.md)
  - [TokenBundle](docs/TokenBundle.md)
- - [TokenBundleInInner](docs/TokenBundleInInner.md)
+ - [V1GetTokenBundlesPost200Response](docs/V1GetTokenBundlesPost200Response.md)
+ - [V1GetTokenBundlesPost200ResponseTokenBundlesInner](docs/V1GetTokenBundlesPost200ResponseTokenBundlesInner.md)
+ - [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner](docs/V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner.md)
+ - [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance](docs/V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance.md)
+ - [V1GetTokenBundlesPostRequest](docs/V1GetTokenBundlesPostRequest.md)
 
 
 <a id="documentation-for-authorization"></a>
@@ -46,5 +50,6 @@ Endpoints do not require authorization.
 
 
 ## Author
+
 
 

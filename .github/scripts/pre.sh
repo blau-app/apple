@@ -18,5 +18,5 @@ if [[ -f "swiftgen.yml" ]]; then
 fi
 
 if [[ -d "Library/API" ]]; then
-    openapi-generator generate -i https://pitboss.api.blau.app/v1 -g swift5 -o ./Library/API
+    openapi-generator generate -i https://pitboss.api.blau.app/v1 -g swift5 -o ./Library/API --additional-properties=responseAs=AsyncAwait
 fi

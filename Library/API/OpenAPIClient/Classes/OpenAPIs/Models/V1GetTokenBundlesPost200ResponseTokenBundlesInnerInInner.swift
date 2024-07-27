@@ -30,6 +30,9 @@ public struct V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner: Codable,
         case swap = "SWAP"
         case borrow = "BORROW"
         case repay = "REPAY"
+        case depositFiat = "DEPOSIT_FIAT"
+        case pauseFiat = "PAUSE_FIAT"
+        case withdrawFiat = "WITHDRAW_FIAT"
         case depositStake = "DEPOSIT_STAKE"
         case pauseStake = "PAUSE_STAKE"
         case withdrawStake = "WITHDRAW_STAKE"
@@ -43,7 +46,6 @@ public struct V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner: Codable,
         case pauseFarm = "PAUSE_FARM"
         case withdrawFarm = "WITHDRAW_FARM"
     }
-    public var id: String
     public var erc: Erc
     public var address: String?
     public var chainId: Int
@@ -53,8 +55,7 @@ public struct V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner: Codable,
     public var actions: [Actions]
     public var balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance
 
-    public init(id: String, erc: Erc, address: String? = nil, chainId: Int, name: String, symbol: String, decimals: Int, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
-        self.id = id
+    public init(erc: Erc, address: String? = nil, chainId: Int, name: String, symbol: String, decimals: Int, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
         self.erc = erc
         self.address = address
         self.chainId = chainId
@@ -66,7 +67,6 @@ public struct V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner: Codable,
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case id
         case erc
         case address
         case chainId = "chain_id"
@@ -81,7 +81,6 @@ public struct V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner: Codable,
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(erc, forKey: .erc)
         try container.encodeIfPresent(address, forKey: .address)
         try container.encode(chainId, forKey: .chainId)

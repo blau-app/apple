@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
 **erc** | **String** |  | 
 **address** | **String** |  | [optional] 
 **chainId** | **Int** |  | 

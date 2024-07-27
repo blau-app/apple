@@ -9,6 +9,10 @@ func BEAM_AVATAR(address: String) -> String {
     "https://avatar.blau.app/beam?name=\(address)"
 }
 
+func ONRAMP_STRIPE_PREVIEW(address: String) -> String {
+    "https://onramp-preview.superdapp.com/stripe/\(address)"
+}
+
 func ONRAMP_STRIPE(address: String) -> String {
     "https://onramp.superdapp.com/stripe/\(address)"
 }

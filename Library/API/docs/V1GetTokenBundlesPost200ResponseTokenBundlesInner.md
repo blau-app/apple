@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **String** |  | 
 **title** | **String** |  | [optional] 
 **_in** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | 
 **out** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | [optional] 

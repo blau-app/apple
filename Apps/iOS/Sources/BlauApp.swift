@@ -18,16 +18,16 @@ struct BlauApp: App {
             ZStack {
                 CapsuleWebView(capsuleManager: capsuleManager).hidden()
                 VStack {
-//                    switch capsuleManager.sessionState {
-//                    case .unknown:
-//                        LoadingView()
-//                    case .noUser:
-//                        SignUpView()
-//                    case .inactive:
-//                        LoginView()
-//                    case .active:
-                    TokensView()
-//                    }
+                    switch capsuleManager.sessionState {
+                    case .unknown:
+                        LoadingView()
+                    case .noUser:
+                        SignUpView()
+                    case .inactive:
+                        LoginView()
+                    case .active:
+                        TokensView()
+                    }
                 }
             }
             .environmentObject(capsuleManager)

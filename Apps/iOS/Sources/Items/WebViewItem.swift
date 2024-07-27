@@ -21,6 +21,6 @@ struct WebViewItem: UIViewRepresentable {
 }
 
 #Preview {
-    WebViewItem(urlString: "https://onramp.superdapp.com")
+    WebViewItem(urlString: "https://onramp-preview.superdapp.com")
         .edgesIgnoringSafeArea(.all)
 }

@@ -13,18 +13,15 @@ import AnyCodable
 public struct Balance: Codable, JSONEncodable, Hashable {
 
     static let valueRule = StringRule(minLength: nil, maxLength: nil, pattern: "/^d+$/")
-    public var id: String
     public var value: String
     public var fiat: Double
 
-    public init(id: String, value: String, fiat: Double) {
-        self.id = id
+    public init(value: String, fiat: Double) {
         self.value = value
         self.fiat = fiat
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case id
         case value
         case fiat
     }
@@ -33,7 +30,6 @@ public struct Balance: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encode(value, forKey: .value)
         try container.encode(fiat, forKey: .fiat)
     }

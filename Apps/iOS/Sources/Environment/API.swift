@@ -7,12 +7,12 @@ import SwiftUI
 @Observable class API {
     func getTokenBundles(addresses: [String]) async throws -> [TokenBundle] {
         //        OpenAPIClientAPI.basePath = "https://bundles.api.blau.app"
-                OpenAPIClientAPI.basePath = "http://localhost:17001"
+        OpenAPIClientAPI.basePath = "http://localhost:17001"
 
         let postRequest = V1GetTokenBundlesPostRequest(evmPublicKeys: addresses)
         let requestBuilder = DefaultAPI.v1GetTokenBundlesPostWithRequestBuilder(v1GetTokenBundlesPostRequest: postRequest)
         let response = try await requestBuilder.execute()
-        
+
 //        let result =  request
         print(response.body)
 //        OpenAPIClientAPI()

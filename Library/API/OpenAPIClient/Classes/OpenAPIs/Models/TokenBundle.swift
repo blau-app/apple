@@ -25,6 +25,9 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
         case swap = "SWAP"
         case borrow = "BORROW"
         case repay = "REPAY"
+        case depositFiat = "DEPOSIT_FIAT"
+        case pauseFiat = "PAUSE_FIAT"
+        case withdrawFiat = "WITHDRAW_FIAT"
         case depositStake = "DEPOSIT_STAKE"
         case pauseStake = "PAUSE_STAKE"
         case withdrawStake = "WITHDRAW_STAKE"
@@ -38,15 +41,13 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
         case pauseFarm = "PAUSE_FARM"
         case withdrawFarm = "WITHDRAW_FARM"
     }
-    public var id: String
     public var title: String?
     public var _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]
     public var out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]?
     public var actions: [Actions]
     public var balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance
 
-    public init(id: String, title: String? = nil, _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner], out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]? = nil, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
-        self.id = id
+    public init(title: String? = nil, _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner], out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]? = nil, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
         self.title = title
         self._in = _in
         self.out = out
@@ -55,7 +56,6 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
     }
 
     public enum CodingKeys: String, CodingKey, CaseIterable {
-        case id
         case title
         case _in = "in"
         case out
@@ -67,7 +67,6 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
         try container.encodeIfPresent(title, forKey: .title)
         try container.encode(_in, forKey: ._in)
         try container.encodeIfPresent(out, forKey: .out)

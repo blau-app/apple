@@ -26,6 +26,16 @@ struct TokenBundleItem: View {
                 tokenBundle(tokens: tokensOut)
             }
         }
+        .contextMenu(menuItems: {
+            ForEach(tokenBundle.actions) { action in
+                Button(action: {
+//                    self.token = token
+//                    system.presentedAction = action
+                }, label: {
+                    action.label
+                })
+            }
+        })
     }
 
     func headerLink(label: String, tokenBundle: TokenBundle) -> some View {
@@ -93,7 +103,7 @@ struct TokenBundleItem: View {
                     .foregroundColor(.primary)
                     .font(.system(.body, design: .rounded).monospacedDigit())
                     .privacySensitive()
-                Text(token.balance.value.formatted())
+                Text(token.formattedBalance.value.formatted())
                     .foregroundColor(.secondary)
                     .font(.subheadline)
                     .monospaced()

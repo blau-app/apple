@@ -16,6 +16,9 @@ packages:
   #   branch: initial-branch
   capsule-swift-sdk:
     path: ../swift-sdk
+  SwiftCryptoTokenFormatter:
+    url: https://github.com/gnosis/SwiftCryptoTokenFormatter.git
+    branch: main
   OpenAPIClient:
     path: Library/API
   
@@ -49,6 +52,8 @@ targets:
           "UIInterfaceOrientationPortrait"
         ]
     dependencies:
+      - package: SwiftCryptoTokenFormatter
+        product: SwiftCryptoTokenFormatter
       - package: capsule-swift-sdk
         product: CapsuleSwift
       - package: OpenAPIClient

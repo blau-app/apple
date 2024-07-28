@@ -1,7 +1,9 @@
 // Token.swift
 // Copyright (c) 2024 Superdapp, Inc
 
+import BigInt
 import Foundation
+import SwiftCryptoTokenFormatter
 
 struct Token: Codable, Equatable, Hashable, Identifiable {
     var id: String { address ?? UUID().uuidString }
@@ -25,4 +27,11 @@ struct Token: Codable, Equatable, Hashable, Identifiable {
 
     var actions: [Action] = .init()
     var balance: Balance = .init()
+    var formattedBalance: Balance {
+        let f = TokenFormatter()
+        let balanceDecimal = BigDecimal(BigInt(balance.value), decimals)
+        let valueString = f.string(from: balanceDecimal)
+        return Balance(value: Double(valueString) ?? 0,
+                fiat: 1.0)
+    }
 }

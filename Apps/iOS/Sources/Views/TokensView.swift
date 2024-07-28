@@ -42,9 +42,8 @@ struct TokensView: View {
                 }
         }
         .task {
-            let result = try? await api.getTokenBundles(addresses: ["0xa53417F20BB7148a50849770471De251417C3F12"])
-            print(result)
-//            await loadTokensView()
+//            print(result)
+            await loadTokensView()
         }
         .fullScreenCover(item: $settings.presented, onDismiss: {
             Task {
@@ -129,8 +128,9 @@ struct TokensView: View {
 
     private func loadTokensView() async {
         do {
-            let wallets = try await capsuleManager.fetchWallets()
-            tokenBundles = try await api.getTokenBundles(addresses: wallets.compactMap { $0.address })
+//            let wallets = try await capsuleManager.fetchWallets()
+            tokenBundles = try await api.getTokenBundles(addresses: ["0xa53417F20BB7148a50849770471De251417C3F12"])
+//            tokenBundles = try await api.getTokenBundles(addresses: wallets.compactMap { $0.address })
         } catch {
             print("LOAD WALLETS \(error)")
         }

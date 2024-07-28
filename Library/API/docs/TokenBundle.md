@@ -3,9 +3,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** |  | [optional] 
+**title** | **String** |  | 
 **_in** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | 
-**out** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | [optional] 
+**out** | [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner] |  | 
 **actions** | **[String]** |  | 
 **balance** | [**V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance**](V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance.md) |  | 
 

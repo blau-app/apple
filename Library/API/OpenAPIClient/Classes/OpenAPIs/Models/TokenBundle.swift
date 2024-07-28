@@ -47,7 +47,7 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
     public var actions: [Actions]
     public var balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance
 
-    public init(title: String? = nil, _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner], out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]? = nil, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
+    public init(title: String?, _in: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner], out: [V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner]?, actions: [Actions], balance: V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInnerBalance) {
         self.title = title
         self._in = _in
         self.out = out
@@ -67,9 +67,9 @@ public struct TokenBundle: Codable, JSONEncodable, Hashable {
 
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(title, forKey: .title)
+        try container.encode(title, forKey: .title)
         try container.encode(_in, forKey: ._in)
-        try container.encodeIfPresent(out, forKey: .out)
+        try container.encode(out, forKey: .out)
         try container.encode(actions, forKey: .actions)
         try container.encode(balance, forKey: .balance)
     }

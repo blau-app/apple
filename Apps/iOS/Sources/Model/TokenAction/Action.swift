@@ -23,13 +23,20 @@ enum Action: Int, Identifiable, CaseIterable, Codable, CustomStringConvertible {
     case swap
     case borrow
     case repay
+    case depositFiat
+    case pauseFiat
+    case withdrawFiat
     case depositStake
+    case pauseStake
     case withdrawStake
     case depositLoan
+    case pauseLoan
     case withdrawLoan
     case depositLiquidity
+    case pauseLiquidity
     case withdrawLiquidity
     case depositFarm
+    case pauseFarm
     case withdrawFarm
 
     var id: Int { rawValue }
@@ -48,6 +55,9 @@ enum Action: Int, Identifiable, CaseIterable, Codable, CustomStringConvertible {
         case .swap: "Swap"
         case .borrow: "Borrow"
         case .repay: "Repay"
+        case .depositFiat: "Deposit Cash"
+        case .pauseFiat: "Pause Cah"
+        case .withdrawFiat: "Withdraw Cash"
         case .depositStake: "Deposit Stake"
         case .withdrawStake: "Withdraw Stake"
         case .depositLoan: "Deposit Loan"
@@ -56,6 +66,10 @@ enum Action: Int, Identifiable, CaseIterable, Codable, CustomStringConvertible {
         case .withdrawLiquidity: "Withdraw Liquidity"
         case .depositFarm: "Deposit Farm"
         case .withdrawFarm: "Withdraw Farm"
+        case .pauseStake: "Puase Stake"
+        case .pauseLoan: "Puase Loan"
+        case .pauseLiquidity: "Pause Liquidity"
+        case .pauseFarm: "Pause Farm"
         }
     }
 
@@ -73,8 +87,9 @@ enum Action: Int, Identifiable, CaseIterable, Codable, CustomStringConvertible {
         case .swap: "arrow.2.squarepath"
         case .borrow: "arrow.down.to.line"
         case .repay: "arrow.up.to.line"
-        case .depositStake, .depositLoan, .depositLiquidity, .depositFarm: "arrow.down.to.line.alt"
-        case .withdrawStake, .withdrawLoan, .withdrawLiquidity, .withdrawFarm: "arrow.up.to.line.alt"
+        case .depositFiat, .depositStake, .depositLoan, .depositLiquidity, .depositFarm: "arrow.down.to.line.alt"
+        case .withdrawFiat, .withdrawStake, .withdrawLoan, .withdrawLiquidity, .withdrawFarm: "arrow.up.to.line.alt"
+        case .pauseFiat, .pauseStake, .pauseLoan, .pauseLiquidity, .pauseFarm: "pause"
         }
     }
 

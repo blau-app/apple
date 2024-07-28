@@ -9,6 +9,7 @@ struct TokensView: View {
     @Environment(\.authorizationController) private var authorizationController
     @Environment(\.settings) private var settings
     @Environment(\.api) private var api
+    @Environment(\.dismiss) private var dismiss
 
     private let avatarBeam = AvatarBeam()
     @State private var tokenTypeFilter: TokenTypeFilter = .allTokens
@@ -50,18 +51,21 @@ struct TokensView: View {
                 await loadTokensView()
             }
         }, content: { presented in
-            switch presented {
-            case .accounts: AccountsView()
-            case .addAccount: AddWatchAccountView()
-            case .stripe: StripeOnramp()
-            case .receive: ReceiveOnramp()
-            case let .tokenAction(action):
-                switch action {
-                case .depositLoan: DepositLoanView()
-                case .depositStake: DepositStakeView()
-                default:
-                    EmptyView()
+            NavigationView {
+                switch presented {
+                case .accounts: AccountsView()
+                case .addAccount: AddWatchAccountView()
+                case .stripe: StripeOnramp()
+                case .receive: ReceiveOnramp()
+                case let .tokenAction(action):
+                    
+                        switch action {
+                        case .depositLoan: DepositLoanView()
+                        case .depositStake: DepositStakeView()
+                        default: EmptyView()
+                    }
                 }
+                
             }
         })
     }

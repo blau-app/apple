@@ -6,6 +6,7 @@ import SwiftUI
 struct TokenBundleItem: View {
     var nft = RoundedRectangle(cornerRadius: 12, style: .continuous)
     var ft = Circle()
+    @Environment(\.settings) private var settings
     @Environment(\.colorScheme) private var colorScheme
     @Binding var tokenBundle: TokenBundle
 
@@ -29,8 +30,7 @@ struct TokenBundleItem: View {
         .contextMenu(menuItems: {
             ForEach(tokenBundle.actions) { action in
                 Button(action: {
-//                    self.token = token
-//                    system.presentedAction = action
+                    settings.presented = .tokenAction(action)
                 }, label: {
                     action.label
                 })

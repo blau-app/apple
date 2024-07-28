@@ -57,7 +57,7 @@ struct TokensView: View {
                 case .addAccount: AddWatchAccountView()
                 case .stripe: StripeOnramp()
                 case .receive: ReceiveOnramp()
-                } 
+                }
             }
         })
     }

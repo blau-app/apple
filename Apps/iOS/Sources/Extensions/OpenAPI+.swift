@@ -34,24 +34,33 @@ extension V1GetTokenBundlesPost200ResponseTokenBundlesInnerInInner {
 extension V1GetTokenBundlesPost200ResponseTokenBundlesInner.Actions {
     var toAction: Action {
         switch self {
-        case .send: return .send
-        case .receive: return .receive
-        case .mint: return .mint
-        case .burn: return .burn
-        case .vote: return .vote
-        case .delegate: return .delegate
-        case .collect: return .collect
-        case .approve: return .approve
-        case .revoke: return .revoke
-        case .swap: return .swap
-        case .borrow: return .borrow
-        case .repay: return .repay
-        case .depositFiat, .depositStake, .depositLoan, .depositLiquidity, .depositFarm:
-            return .depositStake // Using .depositStake as a general deposit action
-        case .pauseFiat, .pauseStake, .pauseLoan, .pauseLiquidity, .pauseFarm:
-            return .approve // Using .approve as there's no direct "pause" equivalent
-        case .withdrawFiat, .withdrawStake, .withdrawLoan, .withdrawLiquidity, .withdrawFarm:
-            return .withdrawStake // Using .withdrawStake as a general withdraw action
+        case .send: .send
+        case .receive: .receive
+        case .mint: .mint
+        case .burn: .burn
+        case .vote: .vote
+        case .delegate: .delegate
+        case .collect: .collect
+        case .approve: .approve
+        case .revoke: .revoke
+        case .swap: .swap
+        case .borrow: .borrow
+        case .repay: .repay
+        case .depositFiat: .depositFiat
+        case .depositStake: .depositStake
+        case .depositLoan: .depositLoan
+        case .depositLiquidity: .depositLiquidity
+        case .depositFarm: .depositFarm
+        case .pauseFiat: .pauseFiat
+        case .pauseStake: .pauseStake
+        case .pauseLoan: .pauseLoan
+        case .pauseLiquidity: .pauseLiquidity
+        case .pauseFarm: .pauseFarm
+        case .withdrawFiat: .withdrawFiat
+        case .withdrawStake: .withdrawStake
+        case .withdrawLoan: .withdrawLoan
+        case .withdrawLiquidity: .withdrawLiquidity
+        case .withdrawFarm: .withdrawFarm
         }
     }
 }

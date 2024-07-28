@@ -1,9 +1,5 @@
-//
-//  PresentedSheet.swift
-//  Superdapp
-//
-//  Created by Joe Blau on 7/28/24.
-//
+// PresentedSheet.swift
+// Copyright (c) 2024 Superdapp, Inc
 
 import Foundation
 

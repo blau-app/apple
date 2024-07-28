@@ -32,6 +32,6 @@ struct Token: Codable, Equatable, Hashable, Identifiable {
         let balanceDecimal = BigDecimal(BigInt(balance.value), decimals)
         let valueString = f.string(from: balanceDecimal)
         return Balance(value: Double(valueString) ?? 0,
-                fiat: 1.0)
+                       fiat: 1.0)
     }
 }

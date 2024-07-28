@@ -24,19 +24,19 @@ enum Action: Int, Identifiable, CaseIterable, Codable, CustomStringConvertible {
     case borrow
     case repay
     case depositFiat
-    case pauseFiat
-    case withdrawFiat
     case depositStake
-    case pauseStake
-    case withdrawStake
     case depositLoan
-    case pauseLoan
-    case withdrawLoan
     case depositLiquidity
-    case pauseLiquidity
-    case withdrawLiquidity
     case depositFarm
+    case pauseFiat
+    case pauseStake
+    case pauseLoan
+    case pauseLiquidity
     case pauseFarm
+    case withdrawFiat
+    case withdrawStake
+    case withdrawLoan
+    case withdrawLiquidity
     case withdrawFarm
 
     var id: Int { rawValue }

@@ -10,7 +10,7 @@ struct DepositLoanView: View {
         Text("Deposit Loan")
 
         Button {
-            settings.presented = nil
+            settings.presentedFullScreen = nil
         } label: {
             Text("Deposit")
         }

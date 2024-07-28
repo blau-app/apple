@@ -10,7 +10,7 @@ struct DepositStakeView: View {
         Text("Deposit Stake")
 
         Button {
-            settings.presented = nil
+            settings.presentedFullScreen = nil
         } label: {
             Text("Deposit")
         }

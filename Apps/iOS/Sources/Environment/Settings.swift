@@ -4,7 +4,8 @@
 import SwiftUI
 
 @Observable class Settings {
-    var presented: Presented?
+    var presentedFullScreen: PresentedFullScreen?
+    var presentedSheet: PresentedSheet?
 
     var watch: [Watch] {
         get {

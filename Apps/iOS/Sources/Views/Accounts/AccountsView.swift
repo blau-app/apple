@@ -36,7 +36,7 @@ struct AccountsView: View {
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Menu(content: {
-                            Button { settings.presented = .addAccount } label: {
+                            Button { settings.presentedFullScreen = .addAccount } label: {
                                 Label("Watch Account", systemImage: "eye")
                             }
                             Divider()

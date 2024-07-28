@@ -28,7 +28,7 @@ struct TokensView: View {
                             }
                             Divider()
                             Button {
-                                settings.presented = .accounts
+                                settings.presentedFullScreen = .accounts
                             } label: {
                                 Label("Accounts", systemImage: "person.text.rectangle")
                             }
@@ -46,7 +46,7 @@ struct TokensView: View {
 //            print(result)
             await loadTokensView()
         }
-        .fullScreenCover(item: $settings.presented, onDismiss: {
+        .fullScreenCover(item: $settings.presentedFullScreen, onDismiss: {
             Task {
                 await loadTokensView()
             }
@@ -57,15 +57,7 @@ struct TokensView: View {
                 case .addAccount: AddWatchAccountView()
                 case .stripe: StripeOnramp()
                 case .receive: ReceiveOnramp()
-                case let .tokenAction(action):
-                    
-                        switch action {
-                        case .depositLoan: DepositLoanView()
-                        case .depositStake: DepositStakeView()
-                        default: EmptyView()
-                    }
-                }
-                
+                } 
             }
         })
     }
@@ -86,14 +78,14 @@ struct TokensView: View {
             Text("We are going to get you started in under a minute.")
         } actions: {
             Button {
-                settings.presented = .stripe
+                settings.presentedFullScreen = .stripe
             } label: {
                 Label("Buy with Stripe", systemImage: "dollarsign")
                     .fontWeight(.bold)
             }.buttonStyle(.borderedProminent)
                 .controlSize(.large)
             Button {
-                settings.presented = .receive
+                settings.presentedFullScreen = .receive
             } label: {
                 Label("Receive", systemImage: "qrcode")
                     .fontWeight(.bold)

@@ -13,7 +13,7 @@ struct OnrampLendView: View {
                 .contextMenu(menuItems: {
                     ForEach(tokenBundle.actions) { action in
                         Button(action: {
-                            settings.presented = .tokenAction(action)
+                            settings.presentedSheet = action
                         }, label: {
                             action.label
                         })

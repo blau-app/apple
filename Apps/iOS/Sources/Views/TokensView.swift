@@ -46,18 +46,45 @@ struct TokensView: View {
 //            print(result)
             await loadTokensView()
         }
-        .fullScreenCover(item: $settings.presentedFullScreen, onDismiss: {
+        .sheet(item: $settings.presentedSheet, onDismiss: {
             Task {
                 await loadTokensView()
             }
         }, content: { presented in
             NavigationView {
-                switch presented {
-                case .accounts: AccountsView()
-                case .addAccount: AddWatchAccountView()
-                case .stripe: StripeOnramp()
-                case .receive: ReceiveOnramp()
+                Group {
+                    switch presented {
+                    case .send: SendView()
+                    case .receive: ReceiveView()
+                    case .depositFiat: DepositFiatView()
+                    case .withdrawFiat: WithdrawFiatView()
+                    case .depositStake: DepositStakeView()
+                    case .depositLoan: DepositLoanView()
+                    default: fatalError("Create view")
+                    }
                 }
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button {
+                            dismiss()
+                        } label: {
+                            Image(systemName: "xmark")
+                        }
+                    }
+                }
+            }
+
+        })
+        .fullScreenCover(item: $settings.presentedFullScreen, onDismiss: {
+            Task {
+                await loadTokensView()
+            }
+        }, content: { presented in
+            switch presented {
+            case .accounts: AccountsView()
+            case .addAccount: AddWatchAccountView()
+            case .stripe: StripeView()
+            case .receive: ReceiveView()
             }
         })
     }
@@ -104,21 +131,6 @@ struct TokensView: View {
             } header: {
                 FilterItem(filter: $tokenTypeFilter)
             }
-        }
-    }
-
-    @ViewBuilder
-    private func StripeOnramp() -> some View {
-        switch capsuleManager.wallet?.address {
-        case let .some(address): StripeView(address: address)
-        case .none: EmptyView()
-        }
-    }
-
-    @ViewBuilder func ReceiveOnramp() -> some View {
-        switch capsuleManager.wallet {
-        case let .some(wallet): ReceiveView(wallet: wallet)
-        case .none: EmptyView()
         }
     }
 

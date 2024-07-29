@@ -4,7 +4,11 @@
 import Foundation
 
 struct TokenBundle: Identifiable {
-    var id: UUID { UUID() }
+    var id: String {
+        let combinedIDs = (tokensIn.map { $0.id } + (tokensOut?.map { $0.id } ?? [])).joined(separator: "-")
+        return combinedIDs.sha256
+    }
+
     var tokensIn: [Token]
     var tokensOut: [Token]? = nil
     var actions: [Action] = .init()

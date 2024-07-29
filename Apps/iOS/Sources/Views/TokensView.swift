@@ -47,9 +47,9 @@ struct TokensView: View {
             await loadTokensView()
         }
         .sheet(item: $settings.presentedSheet, onDismiss: {
-            Task {
-                await loadTokensView()
-            }
+//            Task {
+//                await loadTokensView()
+//            }
         }, content: { presented in
             NavigationView {
                 Group {
@@ -63,10 +63,11 @@ struct TokensView: View {
                     default: fatalError("Create view")
                     }
                 }
+                .navigationTitle(presented.description)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
                         Button {
-                            dismiss()
+                            settings.presentedSheet = nil
                         } label: {
                             Image(systemName: "xmark")
                         }
@@ -76,14 +77,14 @@ struct TokensView: View {
 
         })
         .fullScreenCover(item: $settings.presentedFullScreen, onDismiss: {
-            Task {
-                await loadTokensView()
-            }
+//            Task {
+//                await loadTokensView()
+//            }
         }, content: { presented in
             switch presented {
             case .accounts: AccountsView()
             case .addAccount: AddWatchAccountView()
-            case .stripe: StripeView()
+            case .stripe: DepositFiatView()
             case .receive: ReceiveView()
             }
         })

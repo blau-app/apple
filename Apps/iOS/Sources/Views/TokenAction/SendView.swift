@@ -40,7 +40,7 @@ struct SendView: View {
             ToolbarItemGroup(placement: .primaryAction) {
                 Button(action: {}, label: {
                     Label("Address Book", systemImage: "person.crop.square.filled.and.at.rectangle")
-                })
+                }).disabled(true)
                 Button(action: { scanAddress() }, label: {
                     Label("Scan QR", systemImage: "qrcode.viewfinder")
                 })
@@ -52,8 +52,14 @@ struct SendView: View {
         .sheet(item: $presentedAddressLoad) { addressLoad in
             switch addressLoad {
             case .addressBook: EmptyView()
-            case .qr: QRCodeScannerItem(scannedCode: $destinationAddress,
-                                        presentedAddressLoad: $presentedAddressLoad)
+            case .qr:
+                #if targetEnvironment(simulator)
+                    NoSimulatorFunctionalityItem()
+                #else
+                    QRCodeScannerItem(scannedCode: $destinationAddress,
+                                      presentedAddressLoad: $presentedAddressLoad)
+
+                #endif
             }
         }
     }

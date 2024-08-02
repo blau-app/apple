@@ -1,39 +1,34 @@
-//
-//  WelcomeView.swift
-//  Superdapp
-//
-//  Created by Joe Blau on 8/1/24.
-//
+// SignInView.swift
+// Copyright (c) 2024 Superdapp, Inc
 
 import SwiftUI
 
-
-struct WelcomeView: View {
+struct SignInView: View {
     @State private var scrollOffset: CGFloat = 0
     @Environment(\.auth) private var auth
 
     var body: some View {
         ZStack {
-            GeometryReader { geometry in
-                 Image("hero")
-                     .resizable()
-                     .aspectRatio(contentMode: .fill)
-                     .offset(x: -scrollOffset / 2) // Parallax effect
-                     .clipped()
-                     .overlay(
-                         LinearGradient(
+            GeometryReader { _ in
+                Image("hero")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .offset(x: -scrollOffset / 2) // Parallax effect
+                    .clipped()
+                    .overlay(
+                        LinearGradient(
                             stops: [
-                                 .init(color: .clear, location: 0.44),
-                                 .init(color: Color(uiColor: .systemBackground), location: 0.66)
-                             ],
-                             startPoint: .top,
-                             endPoint: .bottom
-                         )
-                     )
-             }
-             .ignoresSafeArea()
+                                .init(color: .clear, location: 0.44),
+                                .init(color: Color(uiColor: .systemBackground), location: 0.66),
+                            ],
+                            startPoint: .top,
+                            endPoint: .bottom
+                        )
+                    )
+            }
+            .ignoresSafeArea()
             VStack {
-                 Spacer()
+                Spacer()
                 if let appIcon = UIImage.appIcon {
                     Image(uiImage: appIcon)
                         .resizable()
@@ -45,13 +40,13 @@ struct WelcomeView: View {
                                 .stroke(.tertiary, lineWidth: 1)
                         )
                         .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 10)
-                 }
-                 TitleSubtitle()
-                 Actions()
-             }
+                }
+                TitleSubtitle()
+                Actions()
+            }
         }
     }
-    
+
     @ViewBuilder
     private func TitleSubtitle() -> some View {
         VStack(spacing: 10) {
@@ -65,30 +60,27 @@ struct WelcomeView: View {
         }
         .padding()
     }
-    
+
     @ViewBuilder
     private func Actions() -> some View {
         VStack(spacing: 10) {
-            Button {
-                
-            } label: {
+            Button {} label: {
                 Label("Sign In With Face ID", systemImage: "faceid")
                     .frame(maxWidth: .infinity)
             }
             .controlSize(.large)
             .buttonStyle(.borderedProminent)
             .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-            
+
             Text("Your privacy is our prioirty. You are the only person who has access to your private keys.")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
                 .font(.system(.caption, design: .rounded))
-
         }
         .padding()
     }
 }
 
 #Preview {
-    WelcomeView()
+    SignInView()
 }

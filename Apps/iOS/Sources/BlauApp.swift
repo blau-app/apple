@@ -16,7 +16,7 @@ struct BlauApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                WelcomeView()
+                SignInView()
 //                CapsuleWebView(capsuleManager: capsuleManager).hidden()
 //                VStack {
 //                    switch capsuleManager.sessionState {

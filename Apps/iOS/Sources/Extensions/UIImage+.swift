@@ -1,9 +1,5 @@
-//
-//  UIImage+.swift
-//  Superdapp
-//
-//  Created by Joe Blau on 8/1/24.
-//
+// UIImage+.swift
+// Copyright (c) 2024 Superdapp, Inc
 
 import UIKit
 
@@ -12,7 +8,8 @@ extension UIImage {
         guard let iconsDictionary = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
               let primaryIconsDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? [String: Any],
               let iconFiles = primaryIconsDictionary["CFBundleIconFiles"] as? [String],
-              let lastIcon = iconFiles.last else {
+              let lastIcon = iconFiles.last
+        else {
             return nil
         }
         return UIImage(named: lastIcon)

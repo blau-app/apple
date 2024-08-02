@@ -16,8 +16,7 @@ struct OnrampView: View {
                 switch currentStep {
                 case 0:
                     StepHeader("We are going to use Stripe to deposit money into your crypto wallet.")
-                    WebViewItem(urlString: ONRAMP_STRIPE(address: "0xa53417F20BB7148a50849770471De251417C3F12"))
-                        .navigationTitle("Deposit")
+                    DepositFiatView()
                 case 1:
                     StepHeader("Now that you have crypto, let's stake to start earning rewards.")
                     OnrampStakeView()

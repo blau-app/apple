@@ -84,7 +84,6 @@ struct TokensView: View {
             switch presented {
             case .accounts: AccountsView()
             case .addAccount: AddWatchAccountView()
-            case .stripe: DepositFiatView()
             case .receive: ReceiveView()
             }
         })
@@ -106,7 +105,7 @@ struct TokensView: View {
             Text("We are going to get you started in under a minute.")
         } actions: {
             Button {
-                settings.presentedFullScreen = .stripe
+                settings.presentedSheet = .depositFiat
             } label: {
                 Label("Buy with Stripe", systemImage: "dollarsign")
                     .fontWeight(.bold)
@@ -137,9 +136,9 @@ struct TokensView: View {
 
     private func loadTokensView() async {
         do {
-//            let wallets = try await capsuleManager.fetchWallets()
-            tokenBundles = try await api.getTokenBundles(addresses: ["0xa53417F20BB7148a50849770471De251417C3F12"])
-//            tokenBundles = try await api.getTokenBundles(addresses: wallets.compactMap { $0.address })
+            let wallets = try await capsuleManager.fetchWallets()
+//            tokenBundles = try await api.getTokenBundles(addresses: ["0xa53417F20BB7148a50849770471De251417C3F12"])
+            tokenBundles = try await api.getTokenBundles(addresses: wallets.compactMap { $0.address })
         } catch {
             print("LOAD WALLETS \(error)")
         }

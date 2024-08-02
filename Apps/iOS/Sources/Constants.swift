@@ -10,7 +10,7 @@ func BEAM_AVATAR(address: String) -> String {
 }
 
 func ONRAMP_STRIPE_PREVIEW(address: String) -> String {
-    "https://onramp-preview.superdapp.com/stripe/\(address)"
+    "https://test.onramp.superdapp.com/stripe/\(address)"
 }
 
 func ONRAMP_STRIPE(address: String) -> String {

@@ -5,7 +5,6 @@ import Foundation
 
 enum PresentedFullScreen: Identifiable {
     var id: Self { self }
-    case stripe
     case receive
     case accounts
     case addAccount

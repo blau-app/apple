@@ -9,6 +9,7 @@ struct TokenBundleItem: View {
     @Environment(\.settings) private var settings
     @Environment(\.colorScheme) private var colorScheme
     @Binding var tokenBundle: TokenBundle
+    @State var balance = Balance()
 
     var body: some View {
         VStack(spacing: 8) {

@@ -9,7 +9,7 @@ struct ReceiveView: View {
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             switch capsuleManager.wallet {
             case let .some(wallet):
                 List {
@@ -37,7 +37,7 @@ struct ReceiveView: View {
                         Button {
                             dismiss()
                         } label: {
-                            Label("Close", systemImage: "x.mark")
+                            Label("Close", systemImage: "xmark")
                         }
                     }
                 }

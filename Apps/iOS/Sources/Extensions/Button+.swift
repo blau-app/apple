@@ -11,4 +11,13 @@ extension Button {
         case false: buttonStyle(BorderedButtonStyle())
         }
     }
+
+    func primary() -> some View {
+        font(.headline)
+            .controlSize(.large)
+            .buttonStyle(.borderedProminent)
+            .frame(maxWidth: 360)
+            .tint(.accentColor)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+    }
 }

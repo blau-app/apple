@@ -7,7 +7,10 @@ import LocalAuthentication
 public extension LABiometryType {
     var labelText: String {
         switch self {
-        case .none, .touchID, .faceID, .opticID: "Login"
+        case .none: "Login"
+        case .touchID: "Sign In With Touch ID"
+        case .faceID: "Sign In With Face ID"
+        case .opticID: "Sign In With Optic ID"
         @unknown default: "Error"
         }
     }

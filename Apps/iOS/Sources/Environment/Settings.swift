@@ -6,6 +6,7 @@ import SwiftUI
 @Observable class Settings {
     var presentedFullScreen: PresentedFullScreen?
     var presentedSheet: PresentedSheet?
+    var onboardingState: OnboardingState = .loading
 
     var watch: [Watch] {
         get {
@@ -24,6 +25,12 @@ import SwiftUI
     var onboardComplete: Bool = UserDefaults.standard.bool(forKey: "com.superdapp.onboard.complete") {
         didSet {
             UserDefaults.standard.setValue(onboardComplete, forKey: "com.superdapp.onboard.complete")
+        }
+    }
+
+    var email: String? = UserDefaults.standard.string(forKey: "capsule.email.address") {
+        didSet {
+            UserDefaults.standard.setValue(email, forKey: "capsule.email.address")
         }
     }
 }

@@ -1,20 +1,18 @@
 // SignInView.swift
 // Copyright (c) 2024 Superdapp, Inc
 
+import CapsuleSwift
 import SwiftUI
 
 struct SignInView: View {
-    @State private var scrollOffset: CGFloat = 0
+    @EnvironmentObject private var capsuleManager: CapsuleManager
+    @Environment(\.authorizationController) private var authorizationController
     @Environment(\.auth) private var auth
 
     var body: some View {
         ZStack {
             GeometryReader { _ in
-                Image("hero")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .offset(x: -scrollOffset / 2) // Parallax effect
-                    .clipped()
+                HeroItem()
                     .overlay(
                         LinearGradient(
                             stops: [
@@ -51,8 +49,7 @@ struct SignInView: View {
     private func TitleSubtitle() -> some View {
         VStack(spacing: 10) {
             Text("Welcome to Superdapp")
-                .multilineTextAlignment(.center)
-                .font(.system(size: 42, weight: .bold, design: .serif))
+                .h1()
             Text("Access to crypto in one easy to use expereince")
                 .multilineTextAlignment(.center)
                 .foregroundStyle(.secondary)
@@ -63,14 +60,16 @@ struct SignInView: View {
 
     @ViewBuilder
     private func Actions() -> some View {
+        let biometryType = auth.context.biometryType
+
         VStack(spacing: 10) {
-            Button {} label: {
-                Label("Sign In With Face ID", systemImage: "faceid")
+            Button {
+                login()
+            } label: {
+                Label(biometryType.labelText, systemImage: biometryType.systemImage)
                     .frame(maxWidth: .infinity)
             }
-            .controlSize(.large)
-            .buttonStyle(.borderedProminent)
-            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .primary()
 
             Text("Your privacy is our prioirty. You are the only person who has access to your private keys.")
                 .multilineTextAlignment(.center)
@@ -78,6 +77,18 @@ struct SignInView: View {
                 .font(.system(.caption, design: .rounded))
         }
         .padding()
+    }
+
+    // MARK: - Actions
+
+    func login() {
+        Task {
+            do {
+                try await capsuleManager.login(authorizationController: authorizationController)
+            } catch {
+                print(error)
+            }
+        }
     }
 }
 
